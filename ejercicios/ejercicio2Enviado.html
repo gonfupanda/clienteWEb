@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3//DTD XHTML 1.0 transitional//En" "htttp://www.w3.org/TR/xhtml1-transitional.dtd">
+<html xmlns="htttp: //www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+        <title>ejrcicio2</title>
+        <script>
+            var numeros=6;
+            var valido =true;
+            let pares=[];
+            let impares=[];
+
+            while(numeros!=0){//se matiene el buble mientras no introduzca los 6 numeros correctamente
+                var ventana=prompt("introduce "+numeros+" numeros(entre el 1 y el 20):");
+                if(ventana.length==0){//no esta vacio
+                    console.log("esta vacio");
+                    alert("introduce un dato");
+                    valido=false;
+                }else if(isNaN(ventana)){//es numero
+                    
+                    alert("Introduce un numero");
+                    valido=false;
+                }else if(ventana<1 ||ventana>20){//rango correcto
+                    alert("introduce un numero valido"); 
+                    valido=false;              
+                }
+                if(valido){//numero valido, se añade a la array y se combia contador
+                    numeros--;
+                    parseInt(ventana);
+                    if(ventana%2==0){
+                        pares.push(ventana);
+                    }else{
+                        impares.push(ventana);
+                    }
+                }        
+
+            }
+            if(pares.length!=0){//ordeno la array de pares de menor a mayor
+                let aux;
+                for(i=0;i<pares.length;i++){
+                    for(j=1;j<pares.length;j++){
+                        if(pares[j]<pares[i]){
+                            aux=pares[i];
+                            pares[i]=pares[j];
+                            pares[j]=aux;
+                        }
+                    }
+
+                }
+                console.log("Empieza la array de pares:");
+                for(i=0;i<pares.length;i++){
+                    console.log(pares[i]);
+                }
+            }
+            if(impares.length!=0){//ordeno la array de impares de menor a mayor
+                let auxi;
+                for(i=0;i<impares.length;i++){
+                    for(j=1;j<impares.length;j++){
+                        if(impares[j]<impares[i]){
+                            auxi=impares[i];
+                            impares[i]=impares[j];
+                            impares[j]=auxi;
+                        }
+                    }
+                }
+                console.log("Empieza la array de impares:");
+                for(i=0;i<impares.length;i++){
+                    console.log(impares[i]);
+                }
+            }
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

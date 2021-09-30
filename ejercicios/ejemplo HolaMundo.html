@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3//DTD XHTML 1.0 transitional//En" "htttp://www.w3.org/TR/xhtml1-transitional.dtd">
+<html xmlns="htttp: //www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+        <title>ejemplo</title>
+        <script type="text/javascript">
+            //alert("prueba de javascript");
+            confirm("prueba de javascript");//igual que el alert pero con dos botones
+           // document.write("texto");
+        </script>
+
+    </head>
+    <body>
+        <!--<h1>Ejemplo1: codigo embebido</h1> -->
+        <br><br>
+        <!--<script  languaje="javascript" type="text/javascript"> -->
+        <script>
+            function caluloletra(dni) {//funcion que saca la letra del dni del numero
+                var letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
+                var Posicion= dni % 23;//calculo de la letra correcta
+                var Letra = letras[Posicion];//La coje de la lista de opciones
+                console.log(Letra);
+                
+                return Letra;
+            }
+
+            function isnumber(numeros){
+
+                if(numeros.toString().length!=9){//paso a string para mirar el numero de caracteres
+                    alert("introduce la cantidad correcta de numeros");
+                    return;
+                }
+                parseInt(numeros);//miro si es un numero valido
+                if(numeros>1000000000 || numeros<0){
+                    alert("No te sabes tu dni o que?");
+                    return;
+                }
+            }
+        </script>
+
+        <form name="letradni" action="">
+            DNI:<br>
+            <input type="text" name="numero" minlength="9" maxlenght="9" size="9" onchange="isnumber(numero.value)">
+            <input type="text" name="letra" size="1" readonly>
+            <input type="button" value="Ok" onclick="letra.value=caluloletra(numero.value)">
+            </form>
+
+    </body>
+    
+</html>
+

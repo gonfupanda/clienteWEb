@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3//DTD XHTML 1.0 transitional//En" "htttp://www.w3.org/TR/xhtml1-transitional.dtd">
+<html xmlns="htttp: //www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+        <title>ejercicio1</title>
+    </head>
+    <body>
+        <script>
+            function interaacciones(dato) {//funcion que saca las diferentes funciones
+                console.log("entro en la funcion");
+
+               let datoo= parseInt(dato);
+                if(!isNaN(dato)){//miro si es un numero 
+                    var esprimo=true;
+                    console.log("es un numero");
+                    if(datoo!=0 &&datoo!=1){
+                        for( i=2;i<datoo;i++){
+                            if(datoo%i==0){
+                                esprimo=false;
+                            }
+                        }
+                        if(esprimo){
+                            alert("El dato que has introducido es primo");
+                        }
+                     }
+                     console.log(esprimo);
+                   if(!esprimo){
+                        if(dato%2==0){
+                         alert("El dato que has introducido es par");
+                        }else{
+                         alert("El dato que has introducido es impar");
+                       }
+                   }
+
+                    
+                }else{
+                    console.log("es un string"); 
+                    alert("El dato que has introducido es alfabetico");
+                }
+                console.log(typeof(datoo) );
+                console.log(datoo);
+            }
+       
+        </script>
+        <form name="campo" action="">
+            Introduce un dato:<br>
+            <input type="text" name="dato">
+            <input type="button" value="Ok" onclick="interaacciones(dato.value)">
+            </form>
+
+    </body>
+</html>

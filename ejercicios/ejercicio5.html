@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3//DTD XHTML 1.0 transitional//En" "htttp://www.w3.org/TR/xhtml1-transitional.dtd">
+<html xmlns="htttp: //www.w3.org/1999/xhtml">
+    <head>
+        <!--Boodstrap CSS-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" 
+        rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
+        crossorigin="anonymous">
+        <!--Boodstrap-->
+        <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+        <title>ejercicio3</title>
+        <style>
+            h1{font-family: "Times New Roman";text-decoration: underline;}
+            form{background-color: lightblue;}
+            label{margin-top: 15px;text-decoration: underline;}
+            input{font-style: italic;margin-bottom: 15px;box-shadow: 5px 5px #999}
+            input:hover{border:2px solid DodgerBlue;}
+            button{border-radius: 20%;padding-top: 10px;box-shadow: 0 9px #999;}
+            text{padding-left: 10px;}
+            #baja,#alta{border-radius: 20%;margin-top:10px;box-shadow: 0 5px #999;}          
+            #baja:hover{background-color: #FF0000; /* Green */color: white;}
+            #alta:hover{background-color: #4CAF50; /* Green */color: white;}
+            textarea{width: 300px;height: 100px;}
+            body{background-color:lightblue;}
+        </style>
+    </head>
+    <body  onload="load();">
+        <br><br>
+        <!--Boodstrap JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" 
+        crossorigin="anonymous"></script>
+        <!--Boodstrap-->
+
+        <script>
+            let usuarios = [];//array de objetos
+            let valido =true;
+            let dniConLetra;
+
+            // Function to add event listener to button alta and baja(Actualmente no se usa)
+            function load() {
+                let el = document.getElementById("alta");
+                let al = document.getElementById("baja");
+                //el.addEventListener("click", function(){modifyText("four")}, false);
+                //al.addEventListener("click", function(){modifyText("four")}, false);
+            }
+
+            function newUsuario(dnii,nombree,apellidoo1,apellidoo2) {//funcion que saca la letra del dni del numero
+                let okey = validarUsuario(dnii,nombree,apellidoo1,apellidoo2);
+                
+                if(okey){
+                    okey = validarDni(dnii);
+                    if(okey){
+                        alert("Todo a salido correctamente");
+                        var usuario ={//creo el objeto usuario
+                        dni:dniConLetra,
+                        nombre: nombree,
+                        apellido1: apellidoo1,
+                        apellido2: apellidoo2
+                        };
+                        usuarios.push(usuario);//meto el objeto en la array
+                        console.log("Nuevo usuario introducido:");
+                        for(i=0;i<usuarios.length;i++){
+                         console.log(usuarios[i].dni+"  "+usuarios[i].nombre);
+                        }
+                    }else{
+                        console.log("No a salido correctamente");
+                    }
+                }
+            }
+
+            function validarUsuario(dnii,nombree,apellidoo1,apellidoo2){//compruebo que los datos introducidos tengan sentido
+                valido=true;
+
+                if(dnii.length !=8){
+                    valido = false;
+                    alert("Introduce un dni correcto");
+
+                    let al = document.getElementById("dni");
+                    al.value="";
+                    al.focus();
+
+                }else if(!isNaN(nombree) && valido || nombree.length == 0 && valido){
+                    valido = false;
+                    alert("Introduce un nombre correctamente");
+                    let al = document.getElementById("nombre");
+                    al.value="";
+                    al.focus();
+                }else if(!isNaN(apellidoo1) && valido || apellidoo1.length == 0 && valido){
+                    valido = false;
+                    alert("Introduce un apellido1 correctamente");
+                    let al = document.getElementById("apellidoo1");
+                    al.value="";
+                    al.focus();
+
+                }else if(!isNaN(apellidoo2) && valido || apellidoo2.length == 0 && valido){
+                    valido = false;
+                    alert("Introduce un apellido2 correctamente");
+                    let al = document.getElementById("apellido2");
+                    al.value="";
+                    al.focus();
+
+                }           
+                return valido;
+            }
+          
+            function validarDni(dnii){//me aseguro que a introducido el dni correctamente
+                let bien=true;
+                numeros =parseInt(dnii);
+                dniConLetra= sacarDni(dnii);
+                for(i=0;i<usuarios.length;i++){//miro si ese dni ya existe en la array
+                    if(usuarios[i].dni==dniConLetra){
+                            bien=false;
+                            alert("Ese dni ya se encuentra registrado");             
+                    }
+                }              
+                if(bien){
+                    if(numeros>100000000 || numeros<0){// numeros.length!=8
+                         bien=false;
+                         alert("Los numeros del dni no son correctos");
+                     }     
+                }
+                if(!bien){
+                    let al = document.getElementById("dni");
+                    al.value="";
+                    al.focus();
+                }  
+                return bien;
+            }
+
+            function sacarDni(dnii){ //sacar el dni con la letra
+                let numeros = parseInt(dnii);
+                var letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
+                var Posicion= numeros % 23;//calculo de la letra correcta
+                var Letra = letras[Posicion];//La coje de la lista de opciones
+                dnii =numeros+Letra;
+                //console.log("Este es el resultado del dni final "+dnii);
+                dniConLetra=dnii;
+                return dniConLetra;
+            }
+           
+            function buscarDni(dni){ //buscar el dni el la array(principalmente para el borrado)
+                let bien=false;      
+                dniConLetra= sacarDni(dni);
+                for(i=0;i<usuarios.length;i++){//miro si ese dni ya existe en la array
+                    if(usuarios[i].dni==dniConLetra){
+                            bien=true;
+                            alert("Dni encontrado");             
+                    }
+                } 
+                return bien;     
+            }
+
+            function deleteUsuario(dnii,nombree){//borrar un usuario
+
+                let esta=buscarDni(dnii);
+                if(esta){
+                    esta=false;
+                    for(i=0;i<usuarios.length;i++){
+                        if(dniConLetra ==usuarios[i].dni && nombree==usuarios[i].nombre){//si coincide el dni y el nombre
+                            alert("Se ha borrado al usuario "+usuarios[i].dni+" correctamente");
+                            usuarios.splice(i,1);//borro al usuario que a coincidido
+                            esta=true;
+                            
+                        }
+                    }
+                    if(!esta){//si el usuaio no se encuentra en la array
+                        alert("El usuario no se encuentra dentro ");
+                        
+                    }else{
+                        for(i=0;i<usuarios.length;i++){
+                         console.log(usuarios[i].dni+"  "+usuarios[i].nombre);                        
+                        }
+                    }
+                }
+            }
+
+            function mostrarArray(){//mostrar la array actual en el textArea
+                var textarea = document.getElementById("areatxt");
+                //textarea.value = JSON.stringify(usuarios);//usuarios.join("\n");  
+                textarea.value ="";
+                for(i=0;i<usuarios.length;i++){
+                    textarea.value =textarea.value+"\n"+usuarios[i].dni+" "+usuarios[i].nombre;    
+                }
+
+                textarea.innerText(textarea.value);
+            }
+        </script>
+
+        <form name="formulario" action=""> 
+            <h1>Pagina de Altas y Bajas de usuarios</h1>
+            <!--<legend>Informacion Personal</legend> -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 col-sm-3" >
+                        <label>DNI(sin letra)</label><br>
+                        <input type="text" id="dni" name="dni" minlength="8" maxlenght="8" size="8">
+                    </div>
+                    <div class="col-6 col-sm-3">
+                        <label>Nombre</label><br>
+                        <input type="text" id="nombre" name="nombre">
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div  class="col-6 col-sm-3">
+                        <label>Apellido1</label><br>
+                        <input type="text" id="apellido1" name="apellido1" ><br>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label>Apellido2</label><br>
+                        <input type="text" id="apellido2" name="apellido2" ><br>
+                    </div>
+                </div>
+                <div>
+                    <input type="button" id="alta" value="Alta" onclick="newUsuario(dni.value,nombre.value,apellido1.value,apellido2.value); area.value =mostrarArray()">
+                </div>
+                <div>                  
+                    <input type="button" id="baja" value="Baja" onclick="deleteUsuario(dni.value,nombre.value); area.value =mostrarArray()">
+                </div>
+                <br><br><br>
+                <textarea id ="areatxt" name="area"></textarea>
+
+                </div>
+               
+                
+            <!--Los radioButtons necesitan tener el mismo name
+            <input type="radio" name="rdi">
+            <input type="radio" name="rdi">
+            -->
+
+        </form>
+        
+        <!--
+        <footer>
+            <a href=""></a>
+            <div><label>AQUI IRIA TREMENDO FOOTER</label></div>    
+        </footer>
+        -->
+
+    </body>
+    
+</html>
