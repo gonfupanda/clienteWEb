@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3//DTD XHTML 1.0 transitional//En" "htttp://www.w3.org/TR/xhtml1-transitional.dtd">
+<html xmlns="htttp: //www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+        <title>ejercicio8</title>
+    </head>
+    <body>
+        <script>
+            ///variables para controlar el estado de los botones
+            let b=false;
+            let c=false;
+            let d=false;
+
+            //funciones
+            function cambiarPrimero(){//cambiar tamaño del primer boton
+                let a = document.getElementById("boton1"); 
+                //console.log(a.style.width);
+                //console.log(a.style.height);
+                if(!b){
+                    b=true;
+                    a.style.height="10%";
+                    a.style.width="10%";
+                }else{
+                    b=false;
+                    a.style.height="";
+                    a.style.width="";
+                }
+
+            }
+            function cambiarSegundo(){//cambiar tamaño del segundo boton
+                let a = document.getElementById("boton2"); 
+                if(!c){
+                    c=true;
+                    a.style.height="10%";
+                    a.style.width="10%";
+                }else{
+                    c=false;
+                    a.style.height="";
+                    a.style.width="";
+                }
+            }
+            function cambiarTercero(){//cambiar tamaño del tercer boton
+                let a = document.getElementById("boton3"); 
+                if(!d){
+                    d=true;
+                    a.style.height="10%";
+                    a.style.width="10%";
+                }else{
+                    d=false;
+                    a.style.height="";
+                    a.style.width="";
+                }
+            }
+        </script>
+        <form name="campos" action="">
+            <input type="button" id="boton1" value="boton1" onclick="cambiarPrimero()">
+            <input type="button" id="boton2" value="boton2" onclick="cambiarSegundo()">
+            <input type="button" id="boton3" value="boton3" onclick="cambiarTercero()">
+        </form>
+
+    </body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3//DTD XHTML 1.0 transitional//En" "htttp://www.w3.org/TR/xhtml1-transitional.dtd">
+<html xmlns="htttp: //www.w3.org/1999/xhtml">
+    <head>
+        <!--Boodstrap CSS-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" 
+        rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
+        crossorigin="anonymous">
+        <!--Boodstrap-->
+        <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+        <title>ejercicio7</title>
+        <style>
+            h1{font-family: "Times New Roman";text-decoration: underline;}
+            label{margin-top: 15px;text-decoration: underline;}
+            input{font-style: italic;margin-bottom: 15px;box-shadow: 5px 5px #999}
+            input:hover{border:2px solid DodgerBlue;}
+            button{border-radius: 20%;padding-top: 10px;box-shadow: 0 9px #999;}
+            text{padding-left: 10px;}
+            #baja,#alta{border-radius: 20%;margin-top:10px;box-shadow: 0 5px #999;}          
+            #baja:hover{background-color: #FF0000; /* Green */color: white;}
+            #alta:hover{background-color: #4CAF50; /* Green */color: white;}
+            textarea{width: 500px;height: 100px;}
+            body{background-image: url("../imagenes/pretty-watercolor-background-in-turquoise-color-free-vector.jpg");}
+            img{width: 300px;height: 200px;}
+            footer{background-color: MediumSeaGreen;}
+            #textFooter{text-align: center;text-decoration: double;text-transform: uppercase;}
+        </style>
+    </head>
+    <body >
+        <br><br>
+        <!--Boodstrap JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" 
+        crossorigin="anonymous"></script>
+        <!--Boodstrap-->
+
+        <script>
+
+            let vehiculos = [];//array de objetos
+            let valido =true;
+
+           
+            //CAMBIAR por coches
+            function newVehiculo() {//crea un nuevo usuario
+                ///variables
+                let sePasa=false;
+                let matriculaa = document.getElementById("matricula").value;
+                let nombree = document.getElementById("nombre").value;
+                let apellidoos = document.getElementById("apellidos").value;
+                let modeloo = document.getElementById("modelo").value;
+                let colorr = document.getElementById("color").value;
+                let telefonoo = document.getElementById("telefono").value;
+                let marcaa = document.getElementById("marca").value;
+                let tipoBonoo = document.getElementById("tipoBono").value;
+                let MesBonoo = document.getElementById("mesBono").value;
+                let tiempoo = document.getElementById("tiempo").value;
+                let emaill = document.getElementById("email").value;  
+                /////            
+                let okey = validarVehiculo();
+                
+                if(okey){//datos introducidos correctamente
+                    okey = buscarVehiculo(matriculaa);
+                    if(okey){//el vehiculo es nuevo
+                        alert("Todo ha salido correctamente");
+                        var vehiculo =new Object();//creo el objeto vehiiculo
+                            this.matricula=matriculaa,
+                            this.nombre= nombree,
+                            this. apellidos= apellidoos,
+                            this. email=emaill,
+                            this.modelo= modeloo,
+                            this. color= colorr,
+                            this. telefono= telefonoo,
+                            this.marca= marcaa,
+                            this. tipoBono=tipoBonoo,
+                            this. MesBono=MesBonoo,
+                            this. tiempoRestante=parseInt(tipoBonoo)-tiempoo,// disminuyendo a medida que pasa tiempo en el parking(pero como lo guardo?)
+                        vehiculos.push(vehiculo);//meto el objeto en la array
+                        let a = document.getElementById("matricula");
+                        a.value="";
+                        let tama=vehiculos.length;
+                        console.log(vehiculos);
+                        //sacar el ultimo hueco de la array POR HACER
+                        
+                    }else{//el vehiculo ya esta registrado
+                        console.log("El vehiculo ya se encuentra dentro");
+                        for(i=0;i<vehiculos.length;i++){//busca el objeto 
+                            if(vehiculos[i].matricula==matriculaa){
+                                vehiculos[i].tiempoRestante =vehiculos[i].tiempoRestante-tiempoo;
+                                alert("Se ha actualizado los datos de este vehiculo"); 
+                            }
+                            if(vehiculos[i].tiempoRestante<0){
+                                sePasa=true;
+                            }
+                        }
+                        
+                    }
+                    if(sePasa){//ha pasado el bono de horas
+                        alert("Pasa por el puesto del vigilante");
+                    }else{
+                        alert("Adios ");//+vehiculos[index].nombre
+                    }
+
+                }
+            }
+
+            function validarVehiculo(){//compruebo que los datos introducidos tengan sentido
+                
+                ///variables
+                let matriculaa = document.getElementById("matricula").value;
+                let nombree = document.getElementById("nombre").value;
+                let apellidoos = document.getElementById("apellidos").value;
+                let modeloo = document.getElementById("modelo").value;
+                let colorr = document.getElementById("color").value;
+                let telefonoo = document.getElementById("telefono").value;
+                let marcaa = document.getElementById("marca").value;
+                let tiempoo = document.getElementById("tiempo").value;
+                let email = document.getElementById("email").value;                   
+                /////
+                valido=true;
+                let a
+
+                let num=parseInt(matriculaa);
+
+                if(matriculaa.length!=7 || (num.length<1000 ||num.length>10000)){
+                    valido = false;
+                    alert("matricula incorrecta");
+                    a = document.getElementById("matricula");
+                    a.value="";
+                    a.focus();
+                }else if(!isNaN(nombree) || nombree.length == 0){
+                    valido = false;
+                    alert("Introduce el nombre correctamente");
+                    a = document.getElementById("nombre");
+                    a.value="";
+                    a.focus();
+                }else if(!isNaN(apellidoos) || apellidoos.length == 0){
+                    valido = false;
+                    alert("Introduce los apellidos correctamente");
+                    
+                    a = document.getElementById("apellidos");
+                    a.value="";
+                    a.focus();
+
+                }else if(!isNaN(modeloo) || modeloo.length == 0){
+                    valido = false;
+                    alert("Introduce el modelo correctamente");
+                    a = document.getElementById("modelo");
+                    a.value="";
+                    a.focus();
+
+                }else if(!isNaN(colorr) || colorr.length == 0){
+                    valido = false;
+                    alert("Introduce el color correctamente");
+                    a = document.getElementById("color");
+                    a.value="";
+                    a.focus();
+                }else if(isNaN(telefonoo) || telefonoo.length!=9){
+                    valido = false;
+                    alert("Introduce el telefono correctamente");
+                    a = document.getElementById("telefono");
+                    a.value="";
+                    a.focus();
+
+                }else if(isNaN(tiempoo) || tiempoo.length == 0){
+                    valido = false;
+                    alert("Introduce el tiempo correctamente");
+                    a = document.getElementById("tiempo");
+                    a.value="";
+                    a.focus();
+                }else if(!validateEmail(email)){
+                    valido = false;
+                    alert("Introduce el email correctamente");
+                    a = document.getElementById("emali");
+                    a.value="";
+                    a.focus();
+                }                                         
+                return valido;
+            }
+
+            function validateEmail(email) {
+                var re = /\S+@\S+\.\S+/;
+                return re.test(email);
+            }           
+            
+            function buscarVehiculo(matriculaa){//miro si esa matricula ya existe en la array
+                let bien=true;
+                for(i=0;i<vehiculos.length;i++){
+                    if(vehiculos[i].matricula==matriculaa){
+                            bien=false;
+                            alert("Esa matricula ya se encuentra registrado");             
+                    }
+                }                
+                return bien;
+            }
+            
+            function mostrarArray(){//mostrar la array actual en el textArea
+                var textarea = document.getElementById("areatxt");  
+                textarea.value ="";
+                for(i=0;i<vehiculos.length;i++){
+                    textarea.value =textarea.value+"\n"+vehiculos[i].matricula+" "+vehiculos[i].nombre+"  "+vehiculos[i].tiempoRestante;    
+                }
+
+                textarea.innerText(textarea.value);
+            }
+        </script>
+
+        <form name="formulario" action="">
+
+            <div class="container">             
+                <div class="row"><!--matricula y Marca--><!--Modelo y Color-->
+                    <div class="col-6 col-sm-3" >
+                        <label>MATRICULA</label><br>
+                        <input type="text" id="matricula" name="matricula" minlength="8" maxlenght="8" size="8">
+                    </div>
+                    <div class="col-6 col-sm-3">
+                        <label>Marca</label><br>
+                        <input type="text" id="marca" name="marca">
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label id="lbModelo">Modelo</label><br>
+                        <input type="text" id="modelo" name="modelo" ><br>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label id="lbColor">Color</label><br>
+                        <input type="text" id="color" name="color" ><br>
+                    </div>
+                    
+                </div>
+                <div class="row"><!--Nombre y Apellidos --><!--Telefono y email-->
+                    <div  class="col-6 col-sm-3">
+                        <label >Nombre</label><br>
+                        <input type="text" id="nombre" name="nombre" ><br>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label >Apellidos</label><br>
+                        <input type="text" id="apellidos" name="apellidos" ><br>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label >Telefono</label><br>
+                        <input type="text" id="telefono" name="telefono" ><br>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label >Email:</label><br>
+                        <input type="email" id="email" name="email">                        
+                    </div>
+                </div>
+                <div class="row"><!--tipo bono y  mes bono--><!--Txt area-->
+                    <div  class="col-6 col-sm-3">
+                        <label >Tipo de bono</label><br>
+                        <select id="tipoBono">
+                            <option value="100" selected>100h</option>
+                            <option value="150">150h</option>
+                            <option value="250">250h</option>
+                        </select>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label >Mes de bono</label><br>
+                        <select id="mesBono">
+                            <option value="enero" selected>Enero</option>
+                            <option value="febrero">Febrero</option>
+                            <option value="marzo">Marzo</option>
+                            <option value="abril">Abril</option>
+                            <option value="mayo">Mayo</option>
+                            <option value="junio">Junio</option>
+                            <option value="julio">Julio</option>
+                            <option value="agosto">Agosto</option>
+                            <option value="septiembre">Septiembre</option>
+                            <option value="octubre">Octubre</option>
+                            <option value="noviembre">Noviembre</option>
+                            <option value="diciembre">Diciembre</option>
+                        </select>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <textarea id ="areatxt" name="area" rows="6" readonly></textarea>
+                    </div>
+                   
+                </div>
+                <div class="row"> <!--tiempo en el parking-->
+                    <div  class="col-6 col-sm-3">
+                        <label >Tiempo de estancia(h):</label><br>
+                        <input type="text" id="tiempo" name="tiempo" ><br>
+                    </div>
+                </div>               
+                <!--boton de alta -->
+                <div>
+                    <input type="button" id="alta" value="Aceptar" onclick="newVehiculo(); area.value =mostrarArray()">
+                </div>
+            </div>
+
+        </form>
+    </body>
+    
+</html>

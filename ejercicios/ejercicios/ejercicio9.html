@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3//DTD XHTML 1.0 transitional//En" "htttp://www.w3.org/TR/xhtml1-transitional.dtd">
+<html xmlns="htttp: //www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+        <title>ejercicio9</title>
+    </head>
+    <body>
+        <script>
+            ///variables para controlar el estado de los botones
+            let b=false;
+            let c=false;
+            let d=false;
+            
+            //funciones
+            function cambiarPrimero(){//cambiar tamaño del primer boton
+                let a = document.getElementById("imagen"); 
+                //console.log(a.style.width);
+                //console.log(a.style.height);
+                c=false;
+                d=false;
+                if(!b){
+                    b=true;
+                    a.src="../imagenes/585e4beacb11b227491c3399.png";
+
+                }else{
+                    b=false;
+                    a.src="";
+                }
+
+            }
+            function cambiarSegundo(){//cambiar tamaño del segundo boton
+                let a = document.getElementById("imagen"); 
+                b=false;
+                d=false;
+                if(!c){
+                    c=true;
+                    a.src="../imagenes/pretty-watercolor-background-in-turquoise-color-free-vector.jpg";
+                }else{
+                    c=false;
+                    a.src="";
+                }
+            }
+            function cambiarTercero(){//cambiar tamaño del tercer boton
+                let a = document.getElementById("imagen");
+                c=false;
+                b=false; 
+                if(!d){
+                    d=true;
+                    a.src=" ../imagenes/dark-4k-pretty-background-wallpaper-preview.jpg";
+                }else{
+                    d=false;
+                    a.src="";
+                }
+            }
+        </script>
+        <form name="campos" action="">
+            <input type="button" id="boton1" value="boton1" onclick="cambiarPrimero()">
+            <input type="button" id="boton2" value="boton2" onclick="cambiarSegundo()">
+            <input type="button" id="boton3" value="boton3" onclick="cambiarTercero()">
+
+            <br><br><br>
+            <img id="imagen" src="" width="300" height="300"/>
+        </form>
+
+    </body>
+</html>

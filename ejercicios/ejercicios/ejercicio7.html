@@ -1,0 +1,450 @@
+<!DOCTYPE html PUBLIC "-//W3//DTD XHTML 1.0 transitional//En" "htttp://www.w3.org/TR/xhtml1-transitional.dtd">
+<html xmlns="htttp: //www.w3.org/1999/xhtml">
+    <head>
+        <!--Boodstrap CSS-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" 
+        rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
+        crossorigin="anonymous">
+        <!--Boodstrap-->
+        <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+        <title>ejercicio7</title>
+        <style>
+            h1{font-family: "Times New Roman";text-decoration: underline;}
+            label{margin-top: 15px;text-decoration: underline;}
+            input{font-style: italic;margin-bottom: 15px;box-shadow: 5px 5px #999}
+            input:hover{border:2px solid DodgerBlue;}
+            button{border-radius: 20%;padding-top: 10px;box-shadow: 0 9px #999;}
+            text{padding-left: 10px;}
+            #baja,#alta{border-radius: 20%;margin-top:10px;box-shadow: 0 5px #999;}          
+            #baja:hover{background-color: #FF0000; /* Green */color: white;}
+            #alta:hover{background-color: #4CAF50; /* Green */color: white;}
+            textarea{width: 500px;height: 100px;}
+            body{background-image: url("../imagenes/pretty-watercolor-background-in-turquoise-color-free-vector.jpg");}
+            img{width: 300px;height: 200px;}
+            footer{background-color: MediumSeaGreen;}
+            #textFooter{text-align: center;text-decoration: double;text-transform: uppercase;}
+        </style>
+    </head>
+    <body >
+        <br><br>
+        <!--Boodstrap JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" 
+        crossorigin="anonymous"></script>
+        <!--Boodstrap-->
+
+        <script>
+
+            let usuarios = [];//array de objetos
+            let valido =true;
+            let dniConLetra;
+
+            //funciones de control de los radiobuttons
+            function opcionHijoSi(){
+                let a = document.getElementById("hijoSi"); 
+                a.value ="on";
+                let b = document.getElementById("numHijos");
+                let c = document.getElementById("lbHijo");  
+                b.style.visibility = "visible";
+                c.style.visibility = "visible";
+            }
+            function opcionHijoNo(){
+                let a = document.getElementById("hijoNo"); 
+                let b = document.getElementById("numHijos");
+                let c = document.getElementById("lbHijo"); 
+                b.style.visibility = "hidden";
+                c.style.visibility = "hidden";
+                b.value="";
+            }
+            function opcionCocheSi(){
+                let a = document.getElementById("cocheSi"); 
+                let b = document.getElementById("numCoche"); 
+                let c = document.getElementById("lbCoches"); 
+                a.value ="on";
+                b.style.visibility = "visible";
+                c.style.visibility = "visible";
+            }
+            function opcionCocheNo(){
+                let a = document.getElementById("cocheNo"); 
+                let b = document.getElementById("numCoche");
+                let c = document.getElementById("lbCoches");
+                a.value ="off";  
+                b.style.visibility = "hidden";
+                c.style.visibility = "hidden";
+                b.value="";
+                
+            }
+
+            function newUsuario() {//crea un nuevo usuario
+                ///variables
+                let dnii = document.getElementById("dni").value;
+                let nombree = document.getElementById("nombre").value;
+                let apellidoo1 = document.getElementById("apellido1").value;
+                let apellidoo2 = document.getElementById("apellido2").value;
+                let direccionn = document.getElementById("direccion").value;
+                let codigoo = document.getElementById("codigo").value;
+                let telefonoo = document.getElementById("telefono").value;
+                let estadoo = document.getElementById("estado").value;
+                let hijossNum =document.getElementById("numHijos").value;
+                
+                let estadoLab = document.getElementById("estadoLaboral").value;
+                let sectorr = document.getElementById("sector").value;
+                let vehiculossNum = document.getElementById("numCoche").value;
+                //radiobuttons //miro que opcion esta clickeada
+                let domicilioo = document.getElementById("casaSi");
+                if(domicilioo.checked ){
+                    domicilioo = "Si";
+                }else{
+                    domicilioo = "No";
+                }
+                let vacacioness = document.getElementById("vacaSi");
+                if(vacacioness.checked){
+                    vacacioness = "Si";
+                }else{
+                    vacacioness = "No";
+                }
+                /////
+                
+                let okey = validarUsuario();
+                
+                if(okey){
+                    okey = validarDni(dnii);
+                    if(okey){
+                        alert("Todo ha salido correctamente");
+                        var usuario ={//creo el objeto usuario
+                            dni:dniConLetra,
+                            nombre: nombree,
+                            apellido1: apellidoo1,
+                            apellido2: apellidoo2,
+                            direccion: direccionn,
+                            codigo: codigoo,
+                            telefono: telefonoo,
+                            estado: estadoo,
+                            hijos:hijossNum,
+                            estadoLaboral:estadoLab,
+                            sector:sectorr,
+                            vehiculos:vehiculossNum,
+                            domicilio:domicilioo,
+                            vacaciones:vacacioness
+                        };
+                        usuarios.push(usuario);//meto el objeto en la array
+                        let a = document.getElementById("dni");
+                        a.value="";
+                        console.log("Nuevo usuario introducido:");
+                        for(i=0;i<usuarios.length;i++){
+                         console.log(usuarios[i].dni+"  "+usuarios[i].nombre +"  "+usuarios[i].telefono+"  "+usuarios[i].hijos);
+                        }
+                    }else{
+                        console.log("No ha salido correctamente");
+                    }
+                }
+            }
+
+            function validarUsuario(){//compruebo que los datos introducidos tengan sentido
+                
+                ///variables
+                let dnii = document.getElementById("dni").value;
+                let nombree = document.getElementById("nombre").value;
+                let apellidoo1 = document.getElementById("apellido1").value;
+                let apellidoo2 = document.getElementById("apellido2").value;
+                let direccionn = document.getElementById("direccion").value;
+                let codigoo = document.getElementById("codigo").value;
+                let  telefonoo = document.getElementById("telefono").value;
+                let estadoo = document.getElementById("estado").value;
+                let hijoss = document.getElementById("hijoSi").value;
+                let hijossNum = document.getElementById("numHijos").value;
+                let estadoLab = document.getElementById("estadoLaboral").value;
+                let sectorr = document.getElementById("sector").value;
+                let vehiculossNum = document.getElementById("numCoche").value;
+                let vehiculoss = document.getElementById("cocheSi").value;
+                //radiobuttons
+                let domicilioo = document.getElementById("casaSi");
+                if(domicilioo.checked ==false){
+                    domicilioo = document.getElementById("casaNo").value;
+                }else{
+                    domicilioo = document.getElementById("casaSi").value;
+                }
+                vacacioness = document.getElementById("vacaSi");
+                if(vacacioness.checked ==false){
+                    vacacioness = document.getElementById("vacaNo").value;
+                }else{
+                    vacacioness = document.getElementById("vacaSi").value;
+                }            
+                /////
+                valido=true;
+
+                if(dnii.length !=8){
+                    valido = false;
+                    alert("Introduce un dni correcto");
+
+                    let al = document.getElementById("dni");
+                    al.value="";
+                    al.focus();
+
+                }else if(!isNaN(nombree) || nombree.length == 0){
+                    valido = false;
+                    alert("Introduce el nombre correctamente");
+                    let al = document.getElementById("nombre");
+                    al.value="";
+                    al.focus();
+                }else if(!isNaN(apellidoo1) || apellidoo1.length == 0){
+                    valido = false;
+                    alert("Introduce el apellido1 correctamente");
+                    let al = document.getElementById("apellidoo1");
+                    al.value="";
+                    al.focus();
+
+                }else if(!isNaN(apellidoo2) || apellidoo2.length == 0 ){
+                    valido = false;
+                    alert("Introduce el apellido2 correctamente");
+                    let al = document.getElementById("apellido2");
+                    al.value="";
+                    al.focus();
+
+                }else if(!isNaN(direccionn) || direccionn.length == 0){
+                    valido = false;
+                    alert("Introduce la direccion correctamente");
+                    direccionn.value="";
+                    direccionn.focus();
+
+                }else if(isNaN(codigoo) || codigoo.length!=5){
+                    valido = false;
+                    alert("Introduce el codigo postal correctamente");
+                    codigoo.value="";
+                    codigoo.focus();
+
+                }
+                else if(isNaN(telefonoo) || telefonoo.length!=9){
+                    valido = false;
+                    alert("Introduce el telefono correctamente");
+                    telefonoo.value="";
+                    telefonoo.focus();
+
+                }
+                
+                let num=parseFloat(hijossNum);
+                if(hijoss=="si"){
+                    if(num<1){
+                        console.log("el numero de hijos no es valido");
+                        valido = false;
+                        alert("Introduce el numero de hij@s correctamente");
+                        hijossNum.value="";
+                        hijossNum.focus();
+                    }
+                }
+                if( !isNaN((estadoLab) || estadoLab.length == 0)&& valido ){
+                    valido = false;
+                    alert("Introduce el estado laboral correctamente");
+                    estadoLab.value="";
+                    estadoLab.focus();
+                }else if(!isNaN(sectorr) || sectorr.length == 0){
+                    valido = false;
+                    alert("Introduce el estado laboral correctamente");
+                    sectorr.value="";
+                    sectorr.focus();
+
+                }
+                 if(vehiculoss=="si"){
+                    if(vehiculossNum<1){
+                        valido = false;
+                        alert("Introduce el numero de vehiculos correctamente");
+                        vehiculossNum.value="";
+                        vehiculossNum.focus();
+                    }
+                }                         
+                return valido;
+            }
+            
+          
+            function validarDni(dnii){//me aseguro que a introducido el dni correctamente
+                let bien=true;
+                numeros =parseInt(dnii);
+                dniConLetra= sacarDni(dnii);
+                for(i=0;i<usuarios.length;i++){//miro si ese dni ya existe en la array
+                    if(usuarios[i].dni==dniConLetra){
+                            bien=false;
+                            alert("Ese dni ya se encuentra registrado");             
+                    }
+                }              
+                if(bien){
+                    if(numeros>100000000 || numeros<0){// numeros.length!=8
+                         bien=false;
+                         alert("Los numeros del dni no son correctos");
+                     }     
+                }
+                if(!bien){
+                    let al = document.getElementById("dni");
+                    al.value="";
+                    al.focus();
+                }  
+                return bien;
+            }
+
+            function sacarDni(dnii){ //sacar el dni con la letra
+                let numeros = parseInt(dnii);
+                var letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
+                var Posicion= numeros % 23;//calculo de la letra correcta
+                var Letra = letras[Posicion];//La coje de la lista de opciones
+                dnii =numeros+Letra;
+                //console.log("Este es el resultado del dni final "+dnii);
+                dniConLetra=dnii;
+                return dniConLetra;
+            }
+           
+            function buscarDni(dni){ //buscar el dni el la array(principalmente para el borrado)
+                let bien=false;      
+                dniConLetra= sacarDni(dni);
+                for(i=0;i<usuarios.length;i++){//miro si ese dni ya existe en la array
+                    if(usuarios[i].dni==dniConLetra){
+                            bien=true;
+                            alert("Dni encontrado");             
+                    }
+                } 
+                return bien;     
+            }
+            
+            function mostrarArray(){//mostrar la array actual en el textArea
+                var textarea = document.getElementById("areatxt");
+                //textarea.value = JSON.stringify(usuarios);//usuarios.join("\n");  
+                textarea.value ="";
+                for(i=0;i<usuarios.length;i++){
+                    textarea.value =textarea.value+"\n"+usuarios[i].dni+" "+usuarios[i].nombre+"  "+usuarios[i].telefono+"  "+usuarios[i].hijos;    
+                }
+                console.log(usuarios);
+
+                textarea.innerText(textarea.value);
+            }
+        </script>
+
+        <form name="formulario" action="">
+            <!--
+            <img src="../imagenes/585e4beacb11b227491c3399.png"></img> 
+            <h1>Pagina de Altas y Bajas de usuarios</h1>-->
+
+            <div class="container">             
+                <div class="row"><!--nombre y dni--><!--apellidos-->
+                    <div class="col-6 col-sm-3" >
+                        <label>DNI(sin letra)</label><br>
+                        <input type="text" id="dni" name="dni" minlength="8" maxlenght="8" size="8">
+                    </div>
+                    <div class="col-6 col-sm-3">
+                        <label>Nombre</label><br>
+                        <input type="text" id="nombre" name="nombre">
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label id="lbApe1">Apellido1</label><br>
+                        <input type="text" id="apellido1" name="apellido1" ><br>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label id="lbApe2">Apellido2</label><br>
+                        <input type="text" id="apellido2" name="apellido2" ><br>
+                    </div>
+                    
+                </div>
+                <div class="row"><!--direccion y codigo postal--><!--Telefono y estado civil-->
+                    <div  class="col-6 col-sm-3">
+                        <label >Direccion</label><br>
+                        <input type="text" id="direccion" name="direccion" ><br>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label >Codigo Postal</label><br>
+                        <input type="text" id="codigo" name="codigo" ><br>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label >Telefono</label><br>
+                        <input type="text" id="telefono" name="telefono" ><br>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label >Estado civil</label><br>
+                        <select id="estado">
+                            <option value="soltero" selected>Solter@</option>
+                            <option value="padreSoltero">Madre/Padre solter@</option>
+                            <option value="pareja">En pareja</option>
+                            <option value="casado">Casad@</option>
+                            <option value="separado">Separad@</option>
+                            <option value="divorciado">Divorciad@</option>
+                            <option value="viudo">Viud@</option>
+
+
+                        </select>
+                    </div>
+                </div>
+                <div class="row"><!--hijos y numero de hijos--><!--Txt area-->
+                    <div  class="col-6 col-sm-3">
+                        <label >Hijos:</label><br>
+                        <input type="radio" name="rdi5" id="hijoSi" value ="si"checked>   Si<br>
+                        <input type="radio" name="rdi5" value ="si" id="hijoNo">   No<br>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label id="lbHijo">Numero de Hijos</label><br>
+                        <input type="number" id="numHijos" name="numHijos" ><br>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <textarea id ="areatxt" name="area" rows="6" readonly></textarea>
+                    </div>
+                   
+                </div>
+                <div class="row"> <!--Estado laboral y sector-->
+                    <div  class="col-6 col-sm-3">
+                        <label >Estado laboral</label><br>
+                        <input type="text" id="estadoLaboral" name="estadoLaboral" ><br>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label >Sector en el que trabajas</label><br>
+                        <input type="text" id="sector" name="sector" ><br>
+                    </div>
+                </div>
+                <div class="row"><!--domicilio y vacaciones-->
+                    <div  class="col-6 col-sm-3">
+                        <label >Domicilio en propiedad:</label><br>
+                        <input type="radio" name="rdi2" id="casaSi" checked>   Si<br>
+                        <input type="radio" name="rdi2" id="casaNo">   No<br>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label >Dispone de vacaciones:</label><br>
+                        <input type="radio" name="rdi4" id="vacaSi" checked>   Si<br>
+                        <input type="radio" name="rdi4" id="vacaNo">   No<br>
+                    </div>
+                   
+                </div>
+                <div class="row"><!--numero de vehiculos y vehiculo-->
+                    <div  class="col-6 col-sm-3">
+                        <label >Tiene vehiculo:</label><br>
+                        <input type="radio" name="rdi3" value="si" id="cocheSi" checked>   Si<br>
+                        <input type="radio" name="rdi3" id="cocheNo">   No<br>
+                    </div>
+                    <div  class="col-6 col-sm-3">
+                        <label id="lbCoches">Numero de vehiculos:</label><br>
+                        <input type="number" name="numCoche" id="numCoche" ><br>
+                    </div>
+                   
+                </div>
+                <!--botones de alta y baja-->
+                <div>
+                    <input type="button" id="alta" value="Aceptar" onclick="newUsuario(); area.value =mostrarArray()">
+                </div>
+            </div>
+
+        </form>
+
+        <script>
+            //control de radiobuttons
+
+            //vehiculos
+            let el = document.getElementById("cocheSi");
+            let ol = document.getElementById("cocheNo");           
+            el.addEventListener("click", opcionCocheSi);
+            ol.addEventListener("click", opcionCocheNo);
+
+            //hijos
+            let al = document.getElementById("hijoSi");
+            let il = document.getElementById("hijoNo");           
+            al.addEventListener("click", opcionHijoSi);
+            il.addEventListener("click", opcionHijoNo);
+            
+        </script>
+        
+
+    </body>
+    
+</html>
