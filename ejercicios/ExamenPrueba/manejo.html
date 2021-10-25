@@ -1,0 +1,470 @@
+<html>
+    <head>
+        <title>aa</title>
+        <!--Boodstrap CSS-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" 
+        rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
+        crossorigin="anonymous">
+        <!--Boodstrap-->
+        <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+        <style>
+            body{background-image: url("../../imagenes/azul.jpg");}
+            h1{font-family: "Times New Roman";text-decoration: underline;color: azure;text-align: center;}
+            p{color: azure}
+            label{font-family: "Times New Roman";text-decoration: underline;color: blanchedalmond}
+            #altas,#bajas,#modificaciones,#consultas{display: none;}
+        </style>
+
+    </head>
+    <body>
+        <!--Boodstrap JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" 
+        crossorigin="anonymous"></script>
+
+        <div class="container" class="mx-auto" style="width: 600px;">
+            <h1>Menu</h1>
+            <div class="container-xxl" id="menu"><!--Menu-->
+                <button type="button" class="btn btn-primary" id="btnaltas" onclick="mostrarAlta()">Altas</button>
+                <button type="button" class="btn btn-primary" id="btnbajas" onclick="mostrarBajas()">Bajas</button>
+                <button type="button" class="btn btn-primary" id="btnmod" onclick="mostrarMod()">Modificaciones</button>
+                <button type="button" class="btn btn-primary" id="btncon" onclick="mostrarConsultas()">Consultas</button>
+            </div>  
+            <br><br>
+
+            <div class="container-xxl" id="altas" ><!--altas-->
+                <p class="h1">Altas</p>
+                <form class="row g-3 needs-validation" novalidate>
+                    <label for="validationCustom01" class="form-label">Informacion Personal</label>
+                    <div class="col-md-4"><!--nif-->
+                        <label for="validationCustom01" class="form-label">NIF</label>
+                        <input type="text" class="form-control" id="nifAlta" placeholder="NIF" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="col-md-4"><!--nombre-->
+                        <label for="validationCustom01" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="col-md-4"><!--apellido1-->
+                    <label for="validationCustom02" class="form-label">Primer Apellido</label>
+                    <input type="text" class="form-control" id="apellido1" placeholder="Primer Apellido" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    </div>
+                    <div class="col-md-4"><!--apellido2-->
+                        <label for="validationCustom02" class="form-label">Segundo Apellido</label>
+                        <input type="text" class="form-control" id="apellido2" placeholder="Segundo Apellido" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        </div>
+                    <div class="col-md-6"><!--telefono-->
+                        <label for="validationCustom03" class="form-label">Telefono</label>
+                        <input type="text" class="form-control" id="telefono" placeholder="Telefono" required >
+                        <div class="invalid-feedback">
+                            Introduzca el telefono correctamente.
+                        </div>
+                    </div>
+                    <div class="mb-3"><!--email-->
+                        <label for="exampleInputEmail1" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email" aria-describedby="emailHelp">
+                    </div>
+                    <label for="validationCustom01" class="form-label">Vehiculo</label>
+ 
+                    <div class="col-md-6"><!--modelo-->
+                        <label for="validationCustom03" class="form-label">Modelo</label>
+                        <input type="text" class="form-control" id="modelo" placeholder="Modelo" required >
+                        <div class="invalid-feedback">
+                            Introduzca el Modelo correctamente.
+                        </div>
+                    </div>
+                    <div class="col-md-6"><!--matricula-->
+                        <label for="validationCustom03" class="form-label">Matricula</label>
+                        <input type="text" class="form-control" id="matricula" placeholder="Matricula" required >
+                        <div class="invalid-feedback">
+                            Introduzca la matricula correctamente.
+                        </div>
+                    </div>
+                    <div class="col-md-3"><!--reparaciones-->
+                        <label for="validationCustom04" class="form-label">Reparacion</label>
+                        <select class="form-select" id="reparaciones" required>
+                            <option selected  value="mecanica">Mecanica</option>
+                            <option value="pinturaChapa">Pintura/Chapa</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12"><!--botones-->
+                        <button class="btn btn-primary" type="submit" onclick="newVehiculo()">Continuar</button>
+                        <button type="button" class="btn btn-secondary"  onclick="mostrarMenu()">Volver</button>
+                    </div>
+                </form>
+            </div>
+            <div class="container-xxl" id="bajas" ><!--bajas-->
+                <p class="h1">Bajas</p>
+                <div class="col-md-4">
+                    <label for="validationCustom01" class="form-label">NIF</label>
+                    <input type="text" class="form-control" id="nifBaja" placeholder="NIF" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div>
+                    <button type="button" class="btn btn-danger">Danger</button>
+                    <button type="button" class="btn btn-secondary"  onclick="mostrarMenu()">Volver</button>
+                </div>
+            </div>
+            <div class="container-xxl" id="modificaciones" ><!--modificaciones-->
+                <p class="h1">Modificaciones</p>
+                <div class="col-md-4">
+                    <label for="validationCustom01" class="form-label">NIF</label>
+                    <input type="text" class="form-control" id="nifMod" placeholder="NIF" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div>
+                    <button type="button" class="btn btn-warning">Warning</button>
+                    <button type="button" class="btn btn-secondary"  onclick="mostrarMenu()">Volver</button>
+                </div>
+            </div>
+            <div class="container-xxl" id="consultas" ><!--consultas-->
+                <p class="h1">Consultas</p>
+                <div class="col-md-4">
+                    <label for="validationCustom01" class="form-label">NIF</label>
+                    <input type="text" class="form-control" id="nifCon" placeholder="NIF" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div>
+                    <button type="button" class="btn btn-info">Info</button>
+                    <button type="button" class="btn btn-secondary" onclick="mostrarMenu()">Volver</button>
+                </div>
+            </div>
+            <script>
+                //esto sirve para las validaciones(No entiendo del todo este codigo)!!!!!
+                //de momento el email se valida mal y el select no me deja quitarle el validado
+                (function () {
+                    'use strict'
+
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.querySelectorAll('.needs-validation')
+
+                    // Loop over them and prevent submission
+                    Array.prototype.slice.call(forms)
+                        .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                            }
+
+                            form.classList.add('was-validated')
+                        }, false)
+                        })
+                 })()
+
+                let vehiculos = [];//array de objetos
+                let valido =true;
+ 
+            function mostrarAlta(){
+
+                ventanaAltas =document.getElementById("altas");
+                ventanaBajas =document.getElementById("bajas");
+                ventanaMod =document.getElementById("modificaciones");
+                ventanaCon =document.getElementById("consultas");
+                menu =document.getElementById("menu");
+
+                ventanaAltas.style.display ="block";
+                ventanaBajas.style.display ="none";
+                ventanaMod.style.display ="none";
+                ventanaCon.style.display ="none";
+                menu.style.display ="none";
+            }
+            function mostrarBajas(){
+                ventanaAltas =document.getElementById("altas");
+                ventanaBajas =document.getElementById("bajas");
+                ventanaMod =document.getElementById("modificaciones");
+                ventanaCon =document.getElementById("consultas");
+                menu =document.getElementById("menu");
+
+                ventanaBajas.style.display ="block";
+                ventanaAltas.style.display ="none";
+                ventanaMod.style.display ="none";
+                ventanaCon.style.display ="none";
+                menu.style.display ="none";
+            }
+            function mostrarMod(){
+                ventanaAltas =document.getElementById("altas");
+                ventanaBajas =document.getElementById("bajas");
+                ventanaMod =document.getElementById("modificaciones");
+                ventanaCon =document.getElementById("consultas");
+                menu =document.getElementById("menu");
+
+                ventanaAltas.style.display ="none";
+                ventanaBajas.style.display ="none";
+                ventanaMod.style.display ="block";
+                ventanaCon.style.display ="none";
+                menu.style.display ="none";
+            }
+            function mostrarConsultas(){
+                ventanaAltas =document.getElementById("altas");
+                ventanaBajas =document.getElementById("bajas");
+                ventanaMod =document.getElementById("modificaciones");
+                ventanaCon =document.getElementById("consultas");
+                menu =document.getElementById("menu");
+
+                ventanaAltas.style.display ="none";
+                ventanaBajas.style.display ="none";
+                ventanaMod.style.display ="none";
+                ventanaCon.style.display ="block";
+                menu.style.display ="none";
+            }
+            function mostrarMenu(){
+                ventanaAltas =document.getElementById("altas");
+                ventanaBajas =document.getElementById("bajas");
+                ventanaMod =document.getElementById("modificaciones");
+                ventanaCon =document.getElementById("consultas");
+                menu =document.getElementById("menu");
+
+                ventanaBajas.style.display ="none";
+                ventanaAltas.style.display ="none";
+                ventanaMod.style.display ="none";
+                ventanaCon.style.display ="none";
+                menu.style.display ="block";
+            }
+
+            function newVehiculo() {//crea un nuevo objeto vehiculo y lo introduce en la array
+
+                ///variables
+                let niff = document.getElementById("nifAlta").value;
+                let matriculaa = document.getElementById("matricula").value;
+                let nombree = document.getElementById("nombre").value;
+                let apellidoo1 = document.getElementById("apellido1").value;
+                let apellidoo2 = document.getElementById("apellido2").value;
+                let modeloo = document.getElementById("modelo").value;
+                //let colorr = document.getElementById("color").value;
+                let telefonoo = document.getElementById("telefono").value;
+                let marcaa = document.getElementById("marca").value;
+                let emaill = document.getElementById("email").value; 
+                let reparacioness =  document.getElementById("reparaciones").value; 
+                /////            
+                let okey = validarVehiculo();
+                
+                if(okey){//datos introducidos correctamente
+                    okey = buscarVehiculo(matriculaa);
+                    console.log("Paso la validacion");
+                    console.log(okey);
+                    if(okey){//el vehiculo es nuevo
+                        alert("Todo ha salido correctamente");
+                        var vehiculo ={//creo el objeto vehiculo
+                            matricula:matriculaa,
+                            nif : niff,
+                            nombre: nombree,
+                            apellido1: apellidoo1,
+                            apellido2: apellidoo2,
+                            email:emaill,
+                            modelo: modeloo,
+                            telefono: telefonoo,
+                            marca: marcaa,
+                            reparaciones:reparacioness,        
+                            //numReparaciones: numReparacioness //veces que a estado en el taller               
+                        };
+                        vehiculos.push(vehiculo);//meto el objeto en la array
+                       
+                        //vaciar los campos
+                        matriculaa.value="";
+                        emaill.value="";
+                        marcaa.value="";
+                        telefonoo.value="";
+                        modeloo.value="";
+                        apellidoo2.value="";
+                        apellidoo1.value=""; 
+                        nombree.value="";
+                        niff.value="";
+                        console.log(vehiculos);                                         
+                    }else{//el vehiculo ya esta registrado
+                        console.log("El vehiculo ya se encuentra dentro");
+                        for(i=0;i<vehiculos.length;i++){//busca el objeto 
+                            if(vehiculos[i].matricula==matriculaa){
+                                vehiculos[i].tiempoRestante =vehiculos[i].tiempoRestante-tiempoo;
+                                alert("Se ha actualizado los datos de este vehiculo"); 
+                            }                         
+                        }                    
+                    }
+                }
+            }
+
+            //no funciona bien
+            function validarVehiculo(){//compruebo que los datos introducidos tengan sentido
+                
+                ///variables
+                let niff = document.getElementById("nifAlta").value;
+                let matriculaa = document.getElementById("matricula").value;
+                let nombree = document.getElementById("nombre").value;
+                let apellidoo1 = document.getElementById("apellido1").value;
+                let apellidoo2 = document.getElementById("apellido2").value;
+                let modeloo = document.getElementById("modelo").value;
+                //let colorr = document.getElementById("color").value;
+                let telefonoo = document.getElementById("telefono").value;
+                //let marcaa = document.getElementById("marca").value;
+                let email = document.getElementById("email").value;  
+                let num=parseInt(matriculaa);
+                valido=true;
+                let a;
+                console.log("No me peta antes de empezar");
+                /////
+
+                let dniLetra = sacarDni(parseInt(niff));
+
+
+                
+
+                //modo de pedir el dni exacto
+                /*
+                if(dniLetra.length!=9){// si el nif que devuelve no es correcto
+                    valido = false;
+                    alert("NIF incorrecta");
+                    a = document.getElementById("nifAlta");
+                    a.value="";
+                    a.focus();
+
+                }else if(niff!=dniLetra){//si el dni no esta PERFECTO   
+                    valido = false;
+                    alert("NIF incorrecta");
+                    a = document.getElementById("nifAlta");
+                    a.value="";
+                    a.focus();
+                }
+                */
+                //modo con dni falso
+                if(nif!=9 && !validarDni(nif)){
+                    valido = false;
+                    alert("NIF incorrecta");
+                    a = document.getElementById("nifAlta");
+                    a.value="";
+                    a.focus();
+                }
+
+                if(matriculaa.length!=7 || (num.length<1000 ||num.length>10000)){
+                    valido = false;
+                    alert("matricula incorrecta");
+                    a = document.getElementById("matricula");
+                    a.value="";
+                    a.focus();
+                }else if(!isNaN(nombree) || nombree.length == 0){
+                    valido = false;
+                    alert("Introduce el nombre correctamente");
+                    a = document.getElementById("nombre");
+                    a.value="";
+                    a.focus();
+                }else if(!isNaN(apellidoo1) || apellidoo1.length == 0){
+                    valido = false;
+                    alert("Introduce los apellidos correctamente");
+                    
+                    a = document.getElementById("apellido1");
+                    a.value="";
+                    a.focus();
+
+                }else if(!isNaN(apellidoo2) || apellidoo2.length == 0){
+                    valido = false;
+                    alert("Introduce los apellidos correctamente");
+                    
+                    a = document.getElementById("apellido2");
+                    a.value="";
+                    a.focus();
+
+                }else if(!isNaN(modeloo) || modeloo.length == 0){
+                    valido = false;
+                    alert("Introduce el modelo correctamente");
+                    a = document.getElementById("modelo");
+                    a.value="";
+                    a.focus();
+
+                }else if(isNaN(telefonoo) || telefonoo.length!=9){
+                    valido = false;
+                    alert("Introduce el telefono correctamente");
+                    a = document.getElementById("telefono");
+                    a.value="";
+                    a.focus();
+
+                }else if(!validateEmail(email)){
+                    valido = false;
+                    alert("Introduce el email correctamente");
+                    a = document.getElementById("emali");
+                    a.value="";
+                    a.focus();
+                }                                         
+                return valido;
+            }
+
+            function buscarVehiculo(matriculaa){//miro si esa matricula ya existe en la array
+                let bien=true;
+                for(i=0;i<vehiculos.length;i++){
+                    if(vehiculos[i].matricula==matriculaa){
+                            bien=false;
+                            alert("Esa matricula ya se encuentra registrado");             
+                    }
+                }                
+                return bien;
+            }
+
+            function sacarDni(dnii){ //sacar el dni con la letra
+                let numeros = parseInt(dnii);
+                var letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
+                var Posicion= numeros % 23;//calculo de la letra correcta
+                var Letra = letras[Posicion];//La coje de la lista de opciones
+                dnii =numeros+Letra;
+                //console.log("Este es el resultado del dni final "+dnii);
+                dniConLetra=dnii;
+                return dniConLetra;
+            }
+
+            function validarDni(dnii){//me aseguro que a introducido el dni correctamente
+                let bien=true;
+                numeros =parseInt(dnii);
+                dniConLetra= sacarDni(dnii);
+                for(i=0;i<vehiculos.length;i++){//miro si ese dni ya existe en la array
+                    if(vehiculos[i].nif==dniConLetra){
+                            bien=false;
+                            alert("Ese NIF ya se encuentra registrado");             
+                    }
+                }              
+                if(bien){
+                    if(numeros>100000000 || numeros<0){// numeros.length!=8
+                         bien=false;
+                         alert("Los numeros del NIF no son correctos");
+                     }     
+                }
+                return bien;
+            }
+
+            function buscarDni(dni){ //buscar el dni el la array(principalmente para el borrado)
+                let bien=false;      
+                dniConLetra= sacarDni(dni);
+                for(i=0;i<usuarios.length;i++){//miro si ese dni ya existe en la array
+                    if(usuarios[i].dni==dniConLetra){
+                            bien=true;
+                            alert("Dni encontrado");             
+                    }
+                } 
+                return bien;     
+            }
+           
+            </script>
+
+        </div>
+    </body>
+</html>
