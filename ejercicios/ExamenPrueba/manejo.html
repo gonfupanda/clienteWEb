@@ -13,7 +13,12 @@
             p{color: azure}
             label{font-family: "Times New Roman";text-decoration: underline;color: blanchedalmond}
             #altas,#bajas,#modificaciones,#consultas{display: none;}
+            textarea{height: 500px;}
         </style>
+        <script>
+                let vehiculos = [];//array de objetos
+                let valido =true;
+        </script>
 
     </head>
     <body>
@@ -26,7 +31,7 @@
             <h1>Menu</h1>
             <div class="container-xxl" id="menu"><!--Menu-->
                 <button type="button" class="btn btn-primary" id="btnaltas" onclick="mostrarAlta()">Altas</button>
-                <button type="button" class="btn btn-primary" id="btnbajas" onclick="mostrarBajas()">Bajas</button>
+                <!--<button type="button" class="btn btn-primary" id="btnbajas" onclick="mostrarBajas()">Bajas</button>-->
                 <button type="button" class="btn btn-primary" id="btnmod" onclick="mostrarMod()">Modificaciones</button>
                 <button type="button" class="btn btn-primary" id="btncon" onclick="mostrarConsultas()">Consultas</button>
             </div>  
@@ -100,7 +105,7 @@
                     </div>
 
                     <div class="col-12"><!--botones-->
-                        <button class="btn btn-primary" type="submit" onclick="newVehiculo()">Continuar</button>
+                        <button class="btn btn-primary" type="button" onclick="newVehiculo()">Continuar</button>
                         <button type="button" class="btn btn-secondary"  onclick="mostrarMenu()">Volver</button>
                     </div>
                 </form>
@@ -140,16 +145,20 @@
             <div class="container-xxl" id="consultas" ><!--consultas-->
                 <p class="h1">Consultas</p>
                 <div class="col-md-4">
-                    <label for="validationCustom01" class="form-label">NIF</label>
-                    <input type="text" class="form-control" id="nifCon" placeholder="NIF" required>
+                    <label for="validationCustom01" class="form-label">Matricula</label>
+                    <input type="text" class="form-control" id="matriculaConsulta" placeholder="Matricula" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
                 </div>
+                <div class="form-floating"> <!--height="500" widht="500"-->
+                    <textarea class="form-control"  id="textArea" rows="6"  readonly></textarea>
+                    <label for="floatingTextarea">Informacion Personal </label>   
+                  </div>
                 <br>
                 <br>
                 <div>
-                    <button type="button" class="btn btn-info">Info</button>
+                    <button type="button" class="btn btn-info" onclick="buscarMatricula()">Buscar</button>
                     <button type="button" class="btn btn-secondary" onclick="mostrarMenu()">Volver</button>
                 </div>
             </div>
@@ -176,9 +185,38 @@
                         })
                  })()
 
-                let vehiculos = [];//array de objetos
-                let valido =true;
- 
+
+            function buscarMatricula(){
+                let matriculaa =document.getElementById("matriculaConsulta").value;
+                let area = document.getElementById("textArea");
+                if(vehiculos.length!=0){
+                    vehiculos =sacarLocalStorage();
+                    console.log(vehiculos);
+                    let vehiculooo;
+                    let esta=false;
+
+                    for(i=0;i<vehiculos.length;i++){
+                        if(vehiculos[i].matricula==matriculaa){
+                            vehiculooo=vehiculos[i];
+                            esta=true;
+                            i=vehiculos.length;
+                        }
+                    }
+                    if(esta){
+                        area.value ="Nombre: "+vehiculooo.nombre+"\nApellidos: "+
+                        vehiculooo.apellido1+" "+vehiculooo.apellido2+"\nEmail: "+
+                        vehiculooo.email+"\nTelefono: "+vehiculooo.telefono;
+                    }else{
+                        alert("No se ha encontrado la matricula");
+                        area.value="";
+                    }
+                }else{
+                    alert("Introduce un vehiculo al taller primero");
+                }
+
+                
+
+            }
             function mostrarAlta(){
 
                 ventanaAltas =document.getElementById("altas");
@@ -247,9 +285,16 @@
             }
 
             function newVehiculo() {//crea un nuevo objeto vehiculo y lo introduce en la array
+                
+                if(vehiculos.length!=0){
+                    vehiculos =sacarLocalStorage();
+                    console.log("Al entrar a la funcion");
+                    console.log(vehiculos);
+                }
+
 
                 ///variables
-                let niff = document.getElementById("nifAlta").value;
+                let niff = document.getElementById("nifAlta").value; 
                 let matriculaa = document.getElementById("matricula").value;
                 let nombree = document.getElementById("nombre").value;
                 let apellidoo1 = document.getElementById("apellido1").value;
@@ -257,16 +302,14 @@
                 let modeloo = document.getElementById("modelo").value;
                 //let colorr = document.getElementById("color").value;
                 let telefonoo = document.getElementById("telefono").value;
-                let marcaa = document.getElementById("marca").value;
+                //let marcaa = document.getElementById("marca").value;
                 let emaill = document.getElementById("email").value; 
                 let reparacioness =  document.getElementById("reparaciones").value; 
-                /////            
+                /////          
                 let okey = validarVehiculo();
                 
                 if(okey){//datos introducidos correctamente
                     okey = buscarVehiculo(matriculaa);
-                    console.log("Paso la validacion");
-                    console.log(okey);
                     if(okey){//el vehiculo es nuevo
                         alert("Todo ha salido correctamente");
                         var vehiculo ={//creo el objeto vehiculo
@@ -278,40 +321,33 @@
                             email:emaill,
                             modelo: modeloo,
                             telefono: telefonoo,
-                            marca: marcaa,
+                            //marca: marcaa,
                             reparaciones:reparacioness,        
                             //numReparaciones: numReparacioness //veces que a estado en el taller               
                         };
-                        vehiculos.push(vehiculo);//meto el objeto en la array
+                        vehiculos.push(vehiculo);
+                        guardarLocalStorage(vehiculos);//meto el objeto en la array
+ 
                        
                         //vaciar los campos
                         matriculaa.value="";
                         emaill.value="";
-                        marcaa.value="";
+                        //marcaa.value="";
                         telefonoo.value="";
                         modeloo.value="";
                         apellidoo2.value="";
                         apellidoo1.value=""; 
                         nombree.value="";
-                        niff.value="";
-                        console.log(vehiculos);                                         
+                        niff.value="";                                       
                     }else{//el vehiculo ya esta registrado
-                        console.log("El vehiculo ya se encuentra dentro");
-                        for(i=0;i<vehiculos.length;i++){//busca el objeto 
-                            if(vehiculos[i].matricula==matriculaa){
-                                vehiculos[i].tiempoRestante =vehiculos[i].tiempoRestante-tiempoo;
-                                alert("Se ha actualizado los datos de este vehiculo"); 
-                            }                         
-                        }                    
+                        console.log("El vehiculo ya se encuentra dentro");                   
                     }
                 }
             }
 
-            //no funciona bien
             function validarVehiculo(){//compruebo que los datos introducidos tengan sentido
-                
                 ///variables
-                let niff = document.getElementById("nifAlta").value;
+                let niff = document.getElementById("nifAlta").value; 
                 let matriculaa = document.getElementById("matricula").value;
                 let nombree = document.getElementById("nombre").value;
                 let apellidoo1 = document.getElementById("apellido1").value;
@@ -320,18 +356,13 @@
                 //let colorr = document.getElementById("color").value;
                 let telefonoo = document.getElementById("telefono").value;
                 //let marcaa = document.getElementById("marca").value;
-                let email = document.getElementById("email").value;  
+                let email = document.getElementById("email").value;
                 let num=parseInt(matriculaa);
                 valido=true;
                 let a;
-                console.log("No me peta antes de empezar");
                 /////
 
-                let dniLetra = sacarDni(parseInt(niff));
-
-
-                
-
+                let dniLetra = sacarDni(parseInt(niff));              
                 //modo de pedir el dni exacto
                 /*
                 if(dniLetra.length!=9){// si el nif que devuelve no es correcto
@@ -350,9 +381,9 @@
                 }
                 */
                 //modo con dni falso
-                if(nif!=9 && !validarDni(nif)){
+                if(niff!=9 && !validarDni(niff)){
                     valido = false;
-                    alert("NIF incorrecta");
+                    alert("NIF incorrecto");
                     a = document.getElementById("nifAlta");
                     a.value="";
                     a.focus();
@@ -400,13 +431,7 @@
                     a.value="";
                     a.focus();
 
-                }else if(!validateEmail(email)){
-                    valido = false;
-                    alert("Introduce el email correctamente");
-                    a = document.getElementById("emali");
-                    a.value="";
-                    a.focus();
-                }                                         
+                }                                        
                 return valido;
             }
 
@@ -435,9 +460,11 @@
             function validarDni(dnii){//me aseguro que a introducido el dni correctamente
                 let bien=true;
                 numeros =parseInt(dnii);
-                dniConLetra= sacarDni(dnii);
+                //dniConLetra= sacarDni(dnii);//para sacar el dni perfecto
+    
                 for(i=0;i<vehiculos.length;i++){//miro si ese dni ya existe en la array
-                    if(vehiculos[i].nif==dniConLetra){
+
+                    if(vehiculos[i].nif==dnii){
                             bien=false;
                             alert("Ese NIF ya se encuentra registrado");             
                     }
@@ -446,7 +473,7 @@
                     if(numeros>100000000 || numeros<0){// numeros.length!=8
                          bien=false;
                          alert("Los numeros del NIF no son correctos");
-                     }     
+                     }  
                 }
                 return bien;
             }
@@ -461,6 +488,16 @@
                     }
                 } 
                 return bien;     
+            }
+
+            function guardarLocalStorage(vehiculos) {//funcion en la que introduzco un dato en la local storage
+                localStorage.clear();
+                localStorage.setItem("vehiculos",JSON.stringify(vehiculos));
+                //console.log(localStorage.getItem("dato")); 
+            }
+            function sacarLocalStorage(){//devuelve la localStorage
+                let a=JSON.parse(localStorage.getItem("vehiculos"));
+                return a;
             }
            
             </script>
