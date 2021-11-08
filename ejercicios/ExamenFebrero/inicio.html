@@ -1,0 +1,296 @@
+<html>
+    <head>
+        <title>ExamenFebrero</title>
+        <!--Boodstrap CSS-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" 
+        rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
+        crossorigin="anonymous">
+        <!--Boodstrap-->
+        <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+        <style>/*CSS*/
+            body{background-image: url("../../imagenes/azul.jpg");}
+            h1{font-family: "Times New Roman";text-decoration: underline;color: azure;text-align: center;}
+            p{color: azure}
+            label{font-family: "Times New Roman";text-decoration: underline;color: blanchedalmond}
+            #altasBarcos,#bajas,#modificaciones,#consultas,#altasPropietario,#altasPatron{display: none;}
+            textarea{width: 900px;}
+            h3{font-family: "Times New Roman";color: darkslateblue;}
+            td {text-align: center;border-spacing: 30px;}
+        </style>
+        <script src="operaciones.js"></script>
+
+    </head>
+    <body>
+        <!--Boodstrap JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" 
+        crossorigin="anonymous"></script>
+
+        <div class="container-xxl" class="mx-auto" style="width: 600px;">
+ 
+            <div class="container-xxl" id="menu"><!--Menu-->
+                <div class="row">
+                    <div class="col-9"><h1>Puerto Deportivo LAREDO</h1></div>
+                    <table class="table table-dark">
+                        <tbody>
+                          <tr class="table-active">
+                             <td rowspan="3" colspan="3"> <img id="imagen" src="../../imagenes/plencia.jpg" width="300" height="300"/></td>
+                             <td ><input type="button" class="btn btn-primary" id="btnaltas" value="Altas" style="width: 200px;" onclick="mostrarAlta()"></td>    
+                          </tr>
+                          <tr class="table-active">
+                            <td ><input type="button" class="btn btn-primary" id="btnBajas" value="Bajas" style="width: 200px;"onclick="mostrarBajas()"></td>
+                         </tr>
+                          <tr class="table-active">
+                             <td ><input type="button" class="btn btn-primary" id="btnmod" value="Modificaciones" style="width: 200px;" onclick="mostrarMod()"></td>
+                          </tr>                 
+                          <tr class="table-active">
+                              <td><input type="button" class="btn btn-danger" id="btnIngresar" value="Ingresar" style="width: 180px;" ></td>
+                              <td><label></label></td><td><label></label></td>
+                              <td><input type="button" class="btn btn-primary" id="btncon" value="Consultas" style="width: 200px;" onclick="mostrarConsultas()"></td>
+                          </tr>                 
+                          <tr class="table-active">
+                              <td><input type="button" class="btn btn-success" id="btnCopia" value="Copia de Seguridad" style="width: 180px;"></td>
+                              <td><label></label></td><td><label></label></td>
+                              <td><input type="button" class="btn btn-primary" id="btnPago" value="Pagos" style="width: 200px;"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <br>             
+                
+            </div>  
+            <br><br>
+
+            <div class="container-xxl" id="altasBarcos" ><!--altas Barcos-->
+                <p class="h1">Alta Embarcacion</p>
+                <form class="row g-3 needs-validation" novalidate>
+                    <label for="validationCustom01" class="form-label">Informacion Embarcacion</label>
+                    <div class="col-md-4"><!--Pantalan-->
+                        <label for="validationCustom01" class="form-label">Pantalan</label>
+                        <input type="text" class="form-control" id="pantalan" placeholder="Pantalan" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="col-md-4"><!--Atraque-->
+                        <label for="validationCustom01" class="form-label">Atraque</label>
+                        <input type="text" class="form-control" id="atraque" placeholder="Atraque" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="col-md-4"><!--Mano-->
+                    <label for="validationCustom02" class="form-label">Mano</label>
+                    <select class="form-select" id="mano" required>
+                        <option selected  value="par">Par</option>
+                        <option value="impar">Impar</option>
+                    </select>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    </div>
+                    <div class="col-md-6"><!--modelo-->
+                        <label for="validationCustom03" class="form-label">Modelo Embarcacion</label>
+                        <input type="text" class="form-control" id="modelo" placeholder="Modelo" required >
+                        <div class="invalid-feedback">
+                            Introduzca el Modelo correctamente.
+                        </div>
+                    </div>
+                    <div class="col-md-6"><!--matricula-->
+                        <label for="validationCustom03" class="form-label">Matricula Embarcacion</label>
+                        <input type="text" class="form-control" id="matricula" placeholder="Matricula" required >
+                        <div class="invalid-feedback">
+                            Introduzca la matricula correctamente.
+                        </div>
+                    </div>
+                    <div class="col-md-6"><!--marca-->
+                        <label for="validationCustom03" class="form-label">Marca Embarcacion</label>
+                        <input type="text" class="form-control" id="marca" placeholder="Marca" required >
+                        <div class="invalid-feedback">
+                            Introduzca el Modelo correctamente.
+                        </div>
+                    </div>
+                    <div class="col-md-6"><!--nif Patron-->
+                        <label for="validationCustom03" class="form-label"> NIF Patron</label>
+                        <input type="text" class="form-control" id="nifPatronBarco" placeholder=" NIF Patron" required >
+                        <div class="invalid-feedback">
+                            Introduzca el NIF correctamente.
+                        </div>
+                    </div>
+                    <div class="col-md-6"><!--nif Propietario-->
+                        <label for="validationCustom03" class="form-label"> NIF Propietario</label>
+                        <input type="text" class="form-control" id="nifPropietarioBarco" placeholder=" NIF Propietario" required >
+                        <div class="invalid-feedback">
+                            Introduzca el NIF correctamente.
+                        </div>
+                    </div>
+            
+                    <div class="col-12"><!--botones-->
+                        <input class="btn btn-primary" type="button" value="Continuar" onclick="crearBarco()">
+                        <input type="button" class="btn btn-secondary"  onclick="mostrarMenu()" value="Volver">
+                    </div>
+                </form>
+            </div>
+            <div class="container-xxl" id="consultas" ><!--consultas-->
+                <p class="h1">Consultas</p>
+                <div class="col-md-4">
+                    <label for="validationCustom01" class="form-label">Matricula</label>
+                    <input type="text" class="form-control" id="matriculaConsulta" placeholder="Matricula" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="form-floating"> <!--height="500" widht="500"-->
+                    <textarea class="form-control" style="height: 300px;" id="textArea" rows="6"  readonly></textarea>
+                    <label for="floatingTextarea">Informacion Personal </label>   
+                  </div>
+                <br>
+                <br>
+                <div>
+                    <input type="button" class="btn btn-info" onclick="buscarMatricula()" value="Buscar">
+                    <input type="button" class="btn btn-secondary" onclick="mostrarMenu()" value="Volver">
+                </div>
+            </div>
+            <div class="container-xxl" id="modificaciones" ><!--modificaciones-->
+                <p class="h1">Modificaciones</p>
+                <div class="col-md-4">
+                    <label for="validationCustom01" class="form-label">Matricula</label>
+                    <input type="text" class="form-control" id="matriculaConsulta" placeholder="Matricula" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="form-floating"> <!--height="500" widht="500"-->
+                    <textarea class="form-control" style="height: 300px;" id="textArea" rows="6"  readonly></textarea>
+                    <label for="floatingTextarea">Informacion Personal </label>   
+                  </div>
+                <br>
+                <br>
+                <div>
+                    <input type="button" class="btn btn-info" onclick="buscarMatricula()" value="Buscar">
+                    <input type="button" class="btn btn-secondary" onclick="mostrarMenu()" value="Volver">
+                </div>
+            </div>
+            <div class="container-xxl" id="bajas" ><!--bajas-->
+                <p class="h1">Bajas</p>
+                <div class="col-md-4">
+                    <label for="validationCustom01" class="form-label">NIF</label>
+                    <input type="text" class="form-control" id="nifBaja" placeholder="NIF" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div>
+                    <input type="button" class="btn btn-danger" value="Danger">
+                    <input type="button" class="btn btn-secondary"  onclick="mostrarMenu()" value="Volver">
+                </div>
+            </div>
+            <div class="container-xxl" id="altasPatron" ><!--altas Patron-->
+                <p class="h1">Alta Patron</p>
+                <form class="row g-3 needs-validation" novalidate>
+                    <label for="validationCustom01" class="form-label">Informacion Personal</label>
+            
+                    <div class="col-md-6"><!--nif Patron-->
+                        <label for="validationCustom03" class="form-label"> NIF Patron</label>
+                        <input type="text" class="form-control" id="nifPatron" placeholder=" NIF" required readonly >
+                        <div class="invalid-feedback">
+                            Introduzca el NIF correctamente.
+                        </div>
+                    </div>
+                    <div class="col-md-6"><!--Nombre Patron-->
+                        <label for="validationCustom03" class="form-label"> Nombre Patron</label>
+                        <input type="text" class="form-control" id="nombrePatron" placeholder=" Nombre" required >
+                        <div class="invalid-feedback">
+                            Introduzca el nombre correctamente.
+                        </div>
+                    </div>
+                    <div class="col-md-6"><!--Telefono Patron-->
+                        <label for="validationCustom03" class="form-label">Telefono Patron</label>
+                        <input type="text" class="form-control" id="tlfPatron" placeholder="Telefono" required >
+                        <div class="invalid-feedback">
+                            Introduzca la marca correctamente.
+                        </div>
+                    </div>
+            
+                    <div class="col-12"><!--botones-->
+                        <input class="btn btn-primary" type="button" value="Continuar" onclick="crearPatron()">
+                        <input type="button" class="btn btn-secondary" value="Volver" onclick="mostrarAlta()" >
+                    </div>
+                </form>
+            </div>
+            <div class="container-xxl" id="altasPropietario" ><!--altas propietario-->
+                <p class="h1">Alta Propietario</p>
+                <form class="row g-3 needs-validation" novalidate>
+                    <label for="validationCustom01" class="form-label">Informacion Personal</label>
+            
+                    <div class="col-md-6"><!--nif propietario-->
+                        <label for="validationCustom03" class="form-label"> NIF Propietario</label>
+                        <input type="text" class="form-control" id="nifPropi" placeholder=" NIF" required readonly >
+                        <div class="invalid-feedback">
+                            Introduzca el NIF correctamente.
+                        </div>
+                    </div>
+                    <div class="col-md-6"><!--Nombre propietario-->
+                        <label for="validationCustom03" class="form-label"> Nombre Propietario</label>
+                        <input type="text" class="form-control" id="nombrePropi" placeholder=" Nombre" required >
+                        <div class="invalid-feedback">
+                            Introduzca el nombre correctamente.
+                        </div>
+                    </div>
+                    <div class="col-md-6"><!--apellidos propietario-->
+                        <label for="validationCustom03" class="form-label"> Apellidos Propietario</label>
+                        <input type="text" class="form-control" id="apellido1" placeholder=" Apellidos" required >
+                        <div class="invalid-feedback">
+                            Introduzca los Apellidos correctamente.
+                        </div>
+                    </div>
+            
+                    <div class="mb-3"><!--Password propietario-->
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="passwd">
+                    </div>
+            
+                    <div class="col-md-6"><!--Telefono propietario-->
+                        <label for="validationCustom03" class="form-label">Telefono Propietario</label>
+                        <input type="text" class="form-control" id="tlfPatron" placeholder="Telefono" required >
+                        <div class="invalid-feedback">
+                            Introduzca el telefono correctamente.
+                        </div>
+                    </div>
+                    <div class="mb-3"><!--email-->
+                        <label for="exampleInputEmail1" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email" aria-describedby="emailHelp">
+                    </div>
+            
+                    <div class="col-md-4"><!--Forma pago-->
+                        <label for="validationCustom02" class="form-label">Forma pago</label>
+                        <select class="form-select" id="formaPago" required>
+                            <option selected  value="mensual">Mensual</option>
+                            <option value="trimestral">Trimestral</option>
+                            <option value="anual">Anual</option>
+                        </select>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="col-md-6"><!--IBAN Pago-->
+                        <label for="validationCustom03" class="form-label">IBAN Pago</label>
+                        <input type="text" class="form-control" id="IBAN" placeholder="IBAN Pago" required >
+                        <div class="invalid-feedback">
+                            Introduzca el IBAN correctamente.
+                        </div>
+                    </div>
+            
+            
+                    <div class="col-12"><!--botones-->
+                        <input class="btn btn-primary" type="button"  value="Continuar">
+                        <input type="button" class="btn btn-secondary"  onclick="mostrarAlta()" value="Volver">
+                    </div>
+                </form>
+            </div>
+          
+        </div>
+    </body>
+</html>
