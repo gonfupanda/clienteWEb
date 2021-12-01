@@ -60,7 +60,7 @@ function mostrarAlta(){
     if(!estaMod){
         document.getElementById("nifPatronBarco").removeAttribute("disabled","disabled");//hacer una etiqueta sea editable
         document.getElementById("nifPropietarioBarco").removeAttribute("disabled","disabled");//hacer una etiqueta sea editable
-        
+
         document.getElementById("pantalan").value="";
         document.getElementById("atraque").value="";
         //document.getElementById("mano").value="";//nose que hacer coon selects
@@ -688,10 +688,12 @@ function registroNoAuto(){
 
 }
 
-//PARA LAS MODIFICACIONES PEDIR MATRICULA Y SALDARA UN SELECT PARA ELIGIR EL APARTADO QUE MODIFICAR Y LUEGO EN CADA
-//UNO HACER LAS MODIFICACIONES
-//HACER UN SWITCH OCULTO QUE AL ENTRAR POR MOD LO PONGA A TRUE Y ME CAMBIE EL METODO DEL BOTON FINAL Y LOS CAMPOS A MOD
-
+//SEGUNDO PLAN(ESPERO QUE ESTE SEA EL BUENO)
+//HACER UNA OPCION PARA CADA DONDE PIDA :
+//BARCO=MATRICULA
+//PATRON=NIF
+//PROPI=NIF
+//CADA UNO CON SU BOTON PARA LLEVARLE A SU VENTANA DE MOD
 
 
 //esto sirve para las validaciones!!!!!  //NO VA PORQUE LOS BOTONES SON INPUTS

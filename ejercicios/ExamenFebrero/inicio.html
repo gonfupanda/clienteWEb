@@ -176,9 +176,20 @@
             </div>
             <div class="container-xxl" id="modificaciones" ><!--modificaciones-->
                 <p class="h1">Modificaciones</p>
+                <div class="col-md-3">
+                    <label for="validationCustom04" class="form-label">State</label>
+                    <select class="form-select" id="opciones" required>
+                        <option selected disabled value="barco">Barco</option>
+                        <option value="patron">Patron</option>
+                        <option value="propietario">Propietario</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Please select a valid state.
+                    </div>
+                </div>
                 <div class="col-md-4">
-                    <label for="validationCustom01" class="form-label">NIF</label>
-                    <input type="text" class="form-control" id="matriculaConsulta" placeholder="NIF" required>
+                    <label for="validationCustom01" class="form-label">Identificador</label>
+                    <input type="text" class="form-control" id="idMod" placeholder="Identificador" required>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
