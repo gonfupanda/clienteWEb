@@ -65,13 +65,8 @@
 
         function valido(){
             let valido=true;
-            let nif=$("#nif").val();
             let nombre=$("#nombre").val();
             let ape=$("#ape").val();
-            console.log("datos a validar:");
-            console.log(nif);
-            console.log(nombre);
-            console.log(ape);
             if(nombre==""){
                 valido=false;
                 alert("Nombre incorrecto");
@@ -85,7 +80,7 @@
         function comprobar(){
             let niff=$("#nif").val();
             let valido=true;
-            if(niff.length==0){
+            if(!(/[A-Z]{1}[1-9]{3}/.test(niff))){
                 valido=false;
                 alert("NIF incorrecto");
             }

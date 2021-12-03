@@ -15,7 +15,7 @@
             justify-content: center;
             text-align: center;
             margin-top: 5%;
-            z-index: 3;
+            z-index: 1;
             height: 300px;
             
             
@@ -32,9 +32,37 @@
             z-index: 2;
             opacity: 0.5;
             height: 100%;
+            margin-top: -20%; 
 
             justify-content: center;
             text-align: center;
+        }
+        #zoom{
+          z-index: 3;
+          height: 500px;
+          width: 700px;
+          margin-top: -10%; 
+          margin-left: 20%;
+
+          justify-content: center;
+          text-align: center;
+        }
+
+        .visible{/*capa para mostrar*/
+          justify-content: center;
+            text-align: center;
+            margin-top: 5%;
+            z-index: 1;
+            height: 300px;
+            visibility:collapse;
+        }
+        .invisible{/*capa para esconder*/
+          justify-content: center;
+            text-align: center;
+            margin-top: 5%;
+            z-index: 1;
+            height: 300px;
+            visibility: hidden;
 
         }
     </style>
@@ -98,19 +126,42 @@
           -->
     </div>
     <div class="containner xx-l zoom" id="zoom">
-        <img src="" alt="..." id="zoom">
+        <img src="" alt="..." id="zoom" width="500px" height="500px">
     </div>
     <script type="text/javascript">
         $(".opaco").hide();
         $(".zoom").hide();
-        $("#best").on("click",mostrarImg($("#best")));
+        //$("#best").on("click",mostrarImg($("#best")));
+        $("#best").on("click",function(){//esto servira para hacer el cambio
+          $("#zoom").toggleClass(function(){
+            $(".cuerpo").css("opacity","0.2");
+            $("#zoom[src]").attr("src","../../../imagenes/bestFondo.jpg");
+            $(".zoom").show(1000);
+            
+          });
+          $("#zoom").toggleClass(volver);
+
+        });
 
         function mostrarImg(imagen){//se encargara de mostrar en grande 1 imagen
-            $(".opaco").show(1000);
-            $('.opaco').css('z-index');
+          //$(".opaco").show(1000);
+          //$('.opaco').css('z-index');
+          //$(".zoom").css("opacity:1");
+          $(".zoom").show(1000);
+
+         // $("#zoom").src(imagen);//como cambio el src de una imagen?
         }
         function volver(){//se encargara de volver al estado inicial
+          $(".cuerpo").css("opacity","1");
+          $(".zoom").hide(1000);
 
+
+        }
+        function opaco(){//se encargara de volver al estado inicial
+
+          $(".cuerpo").css("opacity","0.2");
+          $(".zoom").show(1000);
+          $("#zoom").attr()
         }
 
     </script>
