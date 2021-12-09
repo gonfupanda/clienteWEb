@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <style>
+        body{
+            background-color: rgb(80, 77, 77);
+        }
+        .cuerpo{
+            justify-content: center;
+            text-align: center;
+            margin-top: 5%;
+            z-index: 1;
+            height: 300px;
+            
+            
+        }
+        .img{
+            height: 300px;
+            width: 300px;
+        }
+        .card{
+            box-shadow: 5px 10px #888888;
+            margin-right: 20px; 
+        }
+        #opaco{
+            z-index: 2;
+            opacity: 0.5;
+            height: 100%;
+            margin-top: -20%; 
+
+            justify-content: center;
+            text-align: center;
+        }
+        #zoomId{
+          z-index: 3;
+          height: 500px;
+          width: 700px;
+          margin-top: -10%; 
+          margin-left: 20%;
+
+          justify-content: center;
+          text-align: center;
+        }
+
+        .visible{/*capa para mostrar*/
+          justify-content: center;
+            text-align: center;
+            margin-top: 5%;
+            z-index: 1;
+            height: 300px;
+            visibility:collapse;
+        }
+        .invisible{/*capa para esconder*/
+          justify-content: center;
+            text-align: center;
+            margin-top: 5%;
+            z-index: 1;
+            height: 300px;
+            visibility: hidden;
+
+        }
+    </style>
+</head>
+<body id="body">
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js">//Necesario para poder usar JQUERY</script>
+    <script>
+        $(document).ready(function() {});//Instrucción de espera de la carga de todo el documento
+        auto=[];
+        //margin-top: -20%; 
+        //width:100%;
+
+    </script>
+    <div class="cuerpo row" id="cuerpo">
+        <img src="anillo.jpg" class="img" alt="..." id="best">
+        <img src="anillo2.jpg" class="img" alt="..." id="elefante">
+        <img src="anillo3.jpg" class="img" alt="..." id="otro">
+       
+    </div>
+    <div class="containner xx-l isZoom" id="zoomId">
+        <img src="" alt="..." id="zoomImg" width="500px" height="500px">
+    </div>
+    <script type="text/javascript">
+        $(".zoom").hide();
+        ///opcion desesperada
+        let opcion=false;
+     
+        //no lo forma que se pedia
+        /*
+        $("#best").on("click",function(){
+            if(!opcion){     
+                $("#cuerpo").css("opacity","0.2");                  
+                $("#zoom").show(1000);
+                $("#zoom[src]").attr("src","anillo.jpg"); 
+                opcion=true; 
+                $("#zoom").css("opacity","10");
+            }else{
+                $("#zoom").hide(1000);
+                $("#cuerpo").css("opacity","1");
+                opcion=false; 
+            }
+
+        });
+        $("#elefante").on("click",function(){
+            if(!opcion){     
+                $("#cuerpo").css("opacity","0.2");                  
+                $("#zoom").show(1000);
+                $("#zoom[src]").attr("src","anillo2.jpg"); 
+                opcion=true; 
+            }else{
+                $("#zoom").hide(1000);
+                $("#cuerpo").css("opacity","1");
+                opcion=false; 
+            }
+
+        });
+        $("#otro").on("click",function(){
+            if(!opcion){     
+                $("#cuerpo").css("opacity","0.2");                  
+                $("#zoom").show(1000);
+                $("#zoom[src]").attr("src","anillo3.jpg"); 
+                opcion=true; 
+            }else{
+                $("#zoom").hide(1000);
+                $("#cuerpo").css("opacity","1");
+                opcion=false; 
+            }
+
+        });
+*/
+        ///
+
+
+        //hace lo que le da la gana
+        /*
+        $("#best").on("click",function(){//esto servira para hacer el cambio imagen 1
+          
+            
+            $("#zoomId").toggleClass("isZoom",function(){
+               ($("#zoomId").hasClass("isZoom")) ? isZoomFuction("anillo.jpg"): isZoomFuction("anillo.jpg");    
+          });
+
+        });
+        function isZoomFuction(imagen){
+            $(".zoom").show(1000);
+            $("#cuerpo").css("opacity","0.2");
+            $("#zoomImg[src]").attr("src",imagen);     
+        }
+        function NoZoomFuction(){
+            $(".zoom").hide(1000);
+            $("#cuerpo").css("opacity","1");
+        }
+        */
+        $("#elefante").on("click",function(){//esto servira para hacer el cambio imagen 2
+          $(".zoom").toggleClass(function(){
+            $("#cuerpo").css("opacity","0.2");
+            $("#zoom[src]").attr("src","anillo2.jpg");
+            $("#zoom").show(1000);
+            
+          });
+          $("#zoom").toggleClass(function(){    
+            $(".cuerpo").css("opacity","1");
+            $("#zoom").hide(1000);
+
+          });
+        });
+
+        $("#otro").on("click",function(){//esto servira para hacer el cambio imagen 3
+          $(".zoom").toggleClass(function(){
+            $(".cuerpo").css("opacity","0.2");
+            $("#zoom[src]").attr("src","anillo3.jpg");
+            $("#zoom").show(1000);
+            
+          });
+          $(".zoom").toggleClass(function(){
+            $(".cuerpo").css("opacity","1");
+            $("#zoom").hide(1000);
+
+          });
+
+        });
+        
+
+         /* //opcion fallida
+        
+        $("#best").on("click",mostrarOcultar("anillo.jpg",opcion));
+        $("#elefante").on("click",mostrarOcultar("anillo2.jpg",opcion));
+        $("#otro").on("click",mostrarOcultar("anillo3.jpg",opcion));
+        function mostrarOcultar(imagen,opcion){
+            if(!opcion){     
+                $("#cuerpo").css("opacity","0.2");                  
+                $("#zoom").show(1000);
+                $("#zoom[src]").attr("src",imagen); 
+                opcion=true; 
+            }else{
+                $("#zoom").hide(1000);
+                $("#cuerpo").css("opacity","1");
+                opcion=false; 
+            }
+
+        }
+        */
+    
+    </script>
+</body> 
+</html>
