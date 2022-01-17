@@ -22,6 +22,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <!--<script src="operaciones.js"></script>-->
         <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+</body>
+</html>
+
 
     </head>
     <body>
@@ -37,8 +42,8 @@
                 <form id="formUsu">
                     <table width="25%" border="0" align="center" id="principal">
                         <tr><!--identificador usuario-->
-                            <label for="validationCustom03" class="form-label"> Identificador:</label>
-                            <input type="text" class="form-control" name="idIngresar" id="idIngresar" placeholder=" Identificador" required >
+                            <label  class="form-label"> Identificador:</label>
+                            <input type="text" class="form-control" name="nameidIngresar" id="idIngresar"   required>
 
                         </tr>
                         <tr><!--nombre usuario-->
@@ -146,30 +151,34 @@
             function ingresarForm(){//acceder al formulario de ingreso
                 $("#menu").hide(1000);
                 $("#ingresar").show(1000);
-                $(document).ready(function(){
+               $(document).ready(function(){
+                   /* 
                     jQuery.validator.addMethod("patron_contrasena", function(value, element) {
                         return /[A-z]{3}[0-9]{3}/.test(value);
                     }, "El patron consiste de 3 letras seguidos de 3 numeros");
+                    */
                     $("#formUsu").validate({
                         rules:{
-                            IdIngresar:{
-                                required:true,
-                                patron_contrasena: true
+                            nameIdIngresar:{
+                                required: true,
+                                minlength: 2
+                                //patron_contrasena: true
                                 //pattern:/[A-z]{3}[0-9]{3}/
                             },
                             nomIngresar:{
-                                required:true,
-                                minlenght:5
+                                required: true,
+                                minlength: 4
                             }
                         },
                         messages:{
-                            IdIngresar:{
-                                required:"Este campo es obligatorio",
+                            nameIdIngresar:{
+                                required:"Este campo es OBLIGATORIO",
+                                minlength:"longitud minima 2"
                                 //pattern:"El patron consiste de 3 letras seguidos de 3 numeros"
                             },
                             nomIngresar:{
-                                required:"Este campo es obligatorio",
-                                minlenght:"El numero minimo de caracteres es de 5"
+                                required:"Este campo es OBLIGATORIO",
+                                minlength:"longitud minima 5"
                             }
                         }
                     })
@@ -180,14 +189,14 @@
             function navVentas(){//acceder al formulario de ventas
                 $("#menu").hide(1000);
                 $("#ventas").show(1000);
-                $(document).ready(function(){           
+                $(document).ready(function(){     //de momento esto funciona 
+   
                     $("#formVentas").validate({
                         rules:{
                             nameIdVentas:{
                                 required: true,
-                                number:true,
-                                minlenght: 5,
-                                maxlenght: 24
+                                minlength: 2
+
                             },
                             nameCantVentas:{
                                 required:true,
@@ -198,9 +207,7 @@
                         messages:{
                             nameIdVentas:{
                                 required:"Este campo es OBLIGATORIO",
-                                number:"Si entro es una broma",
-                                minlenght:"Minimo de 5 caracteres",
-                                maxlenght:"Maximo de 24 caracteres"
+                                minlength:"longitud minima 2"
                             },
                             nameCantVentas:{
                                 required:"Este campo es OBLIGATORIO",
@@ -219,13 +226,13 @@
                     $("#formCompra").validate({
                         rules:{
                             nameIdCompra:{
-                                required:true,
-                                minlenght:5,
-                                maxlenght:24
+                                required: true,
+                                minlength: 2
+                                //maxlenght:24
                             },
                             namePrecioCompra:{
                                 required:true,
-                                float:true,
+                                number:true,
                                 min:1
                                 
                             },
@@ -238,12 +245,12 @@
                         messages:{
                             nameIdCompra:{
                                 required:"Este campo es OBLIGATORIO",
-                                minlenght:"Minimo de 5 caracteres",
-                                maxlenght:"Maximo de 24 caracteres"
+                                minlength:"longitud minima 2",
+                                //maxlenght:"Maximo de 24 caracteres"
                             },
                             namePrecioCompra:{
                                 required:"Este campo es OBLIGATORIO",
-                                float:"Debe ser numerico",
+                                number:"Debe ser numerico",
                                 min:"Minimo 1"
                                 
                             },
@@ -343,6 +350,11 @@
             ///
 
             ///COMPRAS
+
+            /* //Devuelve si el formulario es valido o no(true=valido   false=no valido)     
+            var validator = $( "#myform" ).validate();
+            validator.form();
+            */
            
             function comprar(){//comprar o modificar un producto
                 idcompra=$("#idCompra").val();
