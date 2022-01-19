@@ -15,6 +15,7 @@
             textarea{width: 900px;}
             h3{font-family: "Times New Roman";color: darkslateblue;}
             td {text-align: center;border-spacing: 30px;}
+            #cuerpo{width: 600px;background-color: rgb(43, 35, 35);border-radius: 5px;box-shadow: 10px 10px 5px grey;}
 
             label.error{color:red;font-size: 8px;}
             input.error{border: 2px dotted red;}
@@ -26,8 +27,6 @@
 
 </body>
 </html>
-
-
     </head>
     <body>
         <!--Boodstrap JS-->
@@ -36,17 +35,18 @@
         crossorigin="anonymous"></script>
         <br><br><br>
 
-        <div class="container-xxl" class="mx-auto" style="width: 600px;background-color: rgb(43, 35, 35);">
+        <div class="container-xxl" class="mx-auto" id="cuerpo">
 
             <div class="container-xxl capaSec" id="ingresar"><!--Alta usuarios AUTORIZADOS-->
                 <form id="formUsu">
                     <table width="25%" border="0" align="center" id="principal">
-                        <tr><!--identificador usuario-->
-                            <label  class="form-label"> Identificador:</label>
-                            <input type="text" class="form-control" name="nameidIngresar" id="idIngresar"   required>
-
+                        <tr><!--nombre usuario-->
+                            <br>
+                            <label for="exampleInputPassword1" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" name="AA" id="AA" required>
                         </tr>
                         <tr><!--nombre usuario-->
+                            <br>
                             <label for="exampleInputPassword1" class="form-label">Nombre:</label>
                             <input type="text" class="form-control" name="nomIngresar" id="nomIngresar" required>
                         </tr>
@@ -62,11 +62,11 @@
             <div class="container-xxl" id="menu"><!--Menu-->
                 <div class="row">
                     <div class="col-9"><h1>Farmacia</h1></div>
-                    <div><input type="button" class="btn btn-success " id="btnIngresar" value="Ingresar" onclick="ingresarForm()" style="width: 180px;" ></div>
+                    
                     <table class="table table-dark">
                         <tbody>
                           <tr class="table-active">
-                             <td rowspan="3" colspan="3"> <img id="imagen" src="farmacia.png" width="300" height="300"/></td>
+                             <td rowspan="3" colspan="3"> <img id="imagen" src="farmacia.png" width="300" height="300" style="text-align: center;"/></td>
                              <td ><input type="button" class="btn btn-primary operacion" id="btnVentas" value="Ventas" style="width: 200px;" onclick="navVentas()"></td>    
                           </tr>
                           <tr class="table-active">
@@ -77,6 +77,8 @@
                           </tr>                           
                         </tbody>
                       </table>
+                      <br>
+                      <div><input type="button" class="btn btn-success " id="btnIngresar" value="Ingresar" onclick="ingresarForm()" style="width: 180px;" ></div>
                 </div>
                 <br>                        
             </div>
@@ -89,6 +91,7 @@
 
                         </tr>
                         <tr><!--cantidad ventas-->
+                            <br>
                             <label for="exampleInputPassword1" class="form-label">Cantidad:</label>
                             <input type="text" class="form-control"  name="nameCantVentas" id="cantVenta" required>
                         </tr>
@@ -110,6 +113,7 @@
 
                         </tr>
                         <tr><!--precio producto-->
+                            <br>
                             <label for="exampleInputPassword1" class="form-label">Precio:</label>
                             <input type="text" class="form-control" name="namePrecioCompra" id="precioProducto" required>
                         </tr>
@@ -128,15 +132,20 @@
             </div>
             <div class="containner-xxl capaSec" id="pedidos"><!--PEDIDOS-->
                 <h1>Productos con Stock de 5 o menos</h1>
+                <br>
                 <textarea id ="areatxt" name="area" rows="6" readonly style="width: 500px;"></textarea>
                 <br>
                 <div>
+                    <br><br>
                     <input class="btn btn-primary" type="button" value="Continuar" onclick="mostrar()">
                     <input type="button" class="btn btn-secondary" value="Volver" onclick="volver_menu(4)"  >
                 </div>
             </div>  
         </div>
         <script>
+            var validador;
+            var validatorUsu;
+            var validatorComp;
            
             
             $(".operacion").hide(0);
@@ -157,11 +166,11 @@
                         return /[A-z]{3}[0-9]{3}/.test(value);
                     }, "El patron consiste de 3 letras seguidos de 3 numeros");
                     */
-                    $("#formUsu").validate({
+                    validador=$("#formUsu").validate({
                         rules:{
-                            nameIdIngresar:{
+                           AA:{
                                 required: true,
-                                minlength: 2
+                                minlength: 2,
                                 //patron_contrasena: true
                                 //pattern:/[A-z]{3}[0-9]{3}/
                             },
@@ -171,9 +180,9 @@
                             }
                         },
                         messages:{
-                            nameIdIngresar:{
+                            AA:{
                                 required:"Este campo es OBLIGATORIO",
-                                minlength:"longitud minima 2"
+                                minlength:"longitud minima 2",
                                 //pattern:"El patron consiste de 3 letras seguidos de 3 numeros"
                             },
                             nomIngresar:{
@@ -181,8 +190,9 @@
                                 minlength:"longitud minima 5"
                             }
                         }
-                    })
+                    })                 
                 });
+               
                 
             }
                
@@ -191,7 +201,7 @@
                 $("#ventas").show(1000);
                 $(document).ready(function(){     //de momento esto funciona 
    
-                    $("#formVentas").validate({
+                    validator=$("#formVentas").validate({
                         rules:{
                             nameIdVentas:{
                                 required: true,
@@ -216,14 +226,16 @@
                             }
                         }
                     })
+
                 });
+                
             }
             function navCompras(){//acceder al formulario de compras
                 $("#menu").hide(1000);
                 $("#compras").show(1000);
 
                 $(document).ready(function(){           
-                    $("#formCompra").validate({
+                    validator=$("#formCompra").validate({
                         rules:{
                             nameIdCompra:{
                                 required: true,
@@ -261,9 +273,7 @@
                             }
                         }
                     })
-                });
-                
-                
+                });       
             } 
             function navPedidos(){
                 $("#menu").hide(1000);
@@ -277,6 +287,10 @@
                 $("#btnIngresar").hide(0);
             }
             function volver_menu(capa){//volver de otras capas al menu
+                $("input[type=text]").val('');//limpia los input
+                if(capa!=1){
+                    validator.resetForm();//resetea los validations
+                }
                 switch(capa){
                     case 1:
                         $("#ingresar").hide(1000);                      
@@ -297,30 +311,36 @@
 
             ///INGRESAR
             function entrar(){//comprobar usuario valido
-               ide= $("#idIngresar").val();
+               ide= $("#AA").val();
                 nom=$("#nomIngresar").val();
                 esta=false;
-                for(i=0;i<usuarios.length;i++){
-                    if(usuarios[i].id==ide &&usuarios[i].nombre==nom){
-                        esta=true;
-                        i=usuarios.length;
+                validatorUsu=validador.form();
+                console.log("valor del validado del formulario de ingresar: "+validatorUsu);
+                if(validatorUsu){
+                    for(i=0;i<usuarios.length;i++){
+                        if(usuarios[i].id==ide &&usuarios[i].nombre==nom){
+                            esta=true;
+                            i=usuarios.length;
+                        }
                     }
-                }
-                if(!esta){
-                    //alert("Usuario o contraseña incorrecta");
-                }else{
-                    ingresarMenu();
-                }
+                    if(!esta){
+                        alert("Usuario o contraseña incorrecta");
+                    }else{
+                        ingresarMenu();
+                        
+                    }
+                }                 
             }
             /// 
 
             ///VENTAS
 
             function venta(){//comprar o modificar un producto
-                idVentas=parseInt($("#idVentas").val());
+                idVentas=$("#idVentas").val();
                 cantVenta=parseInt($("#cantVenta").val());
-                //console.log("cantVenta="+idVentas);
-                //console.log("idVenta="+cantVenta);
+                //console.log("idVenta="+idVentas);
+                //console.log("idVenta2="+$("#idVentas").val());
+                //console.log("cantVenta="+cantVenta);
                 esta=false;
 
                 for(i=0;i<productos.length;i++){
@@ -361,30 +381,34 @@
                 cantcompra=parseInt($("#cantProducto").val());
                 preciocompra=parseFloat($("#precioProducto").val());
                 esta=false;
-
-                for(i=0;i<productos.length;i++){
-                    if(idcompra==productos[i].nombre){
-                        esta=true;
-                        productos[i].cantidad= productos[i].cantidad+cantcompra;
-                        productos[i].precio=preciocompra;
-                        i=productos.length;
-                        //console.log("Producto encontrado");                
+                validatorComp=validador.form();
+                if(validatorComp){
+                    for(i=0;i<productos.length;i++){
+                        if(idcompra==productos[i].nombre){
+                            esta=true;
+                            productos[i].cantidad= productos[i].cantidad+cantcompra;
+                            productos[i].precio=preciocompra;
+                            i=productos.length;
+                            //console.log("Producto encontrado");                
+                        }
                     }
+                    if(!esta){
+                        let producto ={//Objeto de medicamentos
+                            nombre:idcompra,
+                            precio :preciocompra,
+                            cantidad:cantcompra
+                        };
+                        productos.push(producto);
+                    // console.log("producto nuevo introducido");
+                        console.log(productos);
+                    }
+                    $("#idCompra").val("");
+                    $("#cantProducto").val("");   
+                    $("#precioProducto").val(""); 
+                    volver_menu(3); 
                 }
-                if(!esta){
-                    let producto ={//Objeto de medicamentos
-                        nombre:idcompra,
-                        precio :preciocompra,
-                        cantidad:cantcompra
-                    };
-                    productos.push(producto);
-                   // console.log("producto nuevo introducido");
-                    console.log(productos);
-                }
-                $("#idCompra").val("");
-                $("#cantProducto").val("");   
-                $("#precioProducto").val(""); 
-                volver_menu(3); 
+
+               
             }
             ///
 
@@ -393,7 +417,7 @@
                 var textarea = document.getElementById("areatxt");
                 textarea.value ="";
                 for(i=0;i<productos.length;i++){
-                    if(productos[i].cantidad<5){
+                    if(productos[i].cantidad<=5){
                         //console.log("ogjetos a meter en el textarea:");
                        // console.log(productos[i]);
                         textarea.value =textarea.value+"\n"+productos[i].nombre+" "+productos[i].precio+"  "+productos[i].cantidad;    
@@ -472,7 +496,7 @@
 
                 $("#formUsu").validate({
                     rules:{
-                        IdIngresar:{
+                        AA:{
                             required:true,
                             pattern:/[A-z]{3}[0-9]{3}/
                         },
@@ -483,7 +507,7 @@
    
                     },
                     messages:{
-                        IdIngresar:{
+                        AA:{
                             required:"Este campo es obligatorio",
                             pattern:"El patron consiste de 3 letras seguidos de 3 numeros"
                         },
