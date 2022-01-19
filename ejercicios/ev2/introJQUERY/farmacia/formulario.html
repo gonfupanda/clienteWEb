@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>ExamenFebrero</title>
+        <title>farmacia</title>
         <!--Boodstrap CSS-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" 
         rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" 
@@ -105,16 +105,28 @@
 
             </div>
             <div class="container-xxl capaSec" id="compras"><!--COMPRAS-->
-                <form id="formCompra">
-                    <table width="25%" border="0" align="center" id="principal">
-                        <tr><!--identificador producto-->
-                            <label for="validationCustom03" class="form-label"> Identificador:</label>
-                            <input type="text" class="form-control" name="nameIdCompra" id="idCompra" placeholder=" Identificador Producto" required >
+                <form id="formCompraId">  <!--identificador producto-->
+                    <label for="validationCustom03" class="form-label"> Identificador:</label>
+                    <input type="text" class="form-control" name="nameIdCompra" id="idCompra" placeholder=" Identificador Producto" required >
+                    <br><br>
+                    <input class="btn btn-primary" type="button" value="Continuar" onclick="comprar()">
+                    <input type="button" class="btn btn-secondary" value="Volver" onclick="volver_menu(3)"  >
+                </form>
+                <form id="formCompra" class="existe">
+                
+                    <table width="25%" border="0" align="center" id="principal" >
+                        <!--identificador producto-->
+                           
+                       
+                        <tr><!--nombre producto-->
+                            <br>
+                            <label for="validationCustom03" class="form-label"> Nombre:</label>
+                            <input type="text" class="form-control" name="nameNom" id="NomCompra" placeholder=" Nombre Producto" required >
 
                         </tr>
                         <tr><!--precio producto-->
                             <br>
-                            <label for="exampleInputPassword1" class="form-label">Precio:</label>
+                            <label for="exampleInputPassword1" class="form-label">Precio Compra:</label>
                             <input type="text" class="form-control" name="namePrecioCompra" id="precioProducto" required>
                         </tr>
                         <tr><!--cantidad producto-->
@@ -124,10 +136,50 @@
                         </tr>
                         <tr><!--botones-->
                             <br><br>
-                            <input class="btn btn-primary" type="button" value="Continuar" onclick="comprar()">
-                            <input type="button" class="btn btn-secondary" value="Volver" onclick="volver_menu(3)"  >
+                            <input class="btn btn-primary" type="button" value="Continuar" onclick="mod()">
+                            <input type="button" class="btn btn-secondary" value="Volver" onclick="compraInicial()"  >
                         </tr>
                     </table>
+
+                </form>
+                <form id="formCompraNueva" class="noexiste">
+                
+                    <table width="25%" border="0" align="center" id="principal" >                           
+                       
+                        <tr><!--nombre producto-->
+                            <br>
+                            <label for="validationCustom03" class="form-label"> Nombre:</label>
+                            <input type="text" class="form-control" name="nameNomNuevo" id="nameNomNuevo" placeholder=" Nombre Producto" required >
+
+                        </tr>
+                        <tr><!--farmaceutica-->
+                            <br>
+                            <label for="validationCustom03" class="form-label"> Farmaceutica:</label>
+                            <input type="text" class="form-control" name="nameFarma" id="nameFarma" placeholder="" required >
+
+                        </tr>
+                        <tr><!--precio producto Compra-->
+                            <br>
+                            <label for="exampleInputPassword1" class="form-label">Precio Compra:</label>
+                            <input type="text" class="form-control" name="namePrecioCompraNuevo" id="namePrecioCompraNuevo" required>
+                        </tr>
+                        <tr><!--precio producto Venta-->
+                            <br>
+                            <label for="exampleInputPassword1" class="form-label">Precio Venta:</label>
+                            <input type="text" class="form-control" name="namePrecioVentaNuevo" id="namePrecioVentaNuevo" required>
+                        </tr>
+                        <tr><!--cantidad producto-->
+                            <br>
+                            <label for="exampleInputPassword1" class="form-label">Cantidad:</label>
+                            <input type="text" class="form-control" name="nameCantProductoNuevo" id="nameCantProductoNuevo" required>
+                        </tr>
+                        <tr><!--botones-->
+                            <br><br>
+                            <input class="btn btn-primary" type="button" value="Continuar" onclick="crear()">
+                            <input type="button" class="btn btn-secondary" value="Volver" onclick="compraInicial()">
+                        </tr>
+                    </table>
+
                 </form>
             </div>
             <div class="containner-xxl capaSec" id="pedidos"><!--PEDIDOS-->
@@ -146,6 +198,7 @@
             var validador;
             var validatorUsu;
             var validatorComp;
+            var indice;
            
             
             $(".operacion").hide(0);
@@ -233,26 +286,17 @@
             function navCompras(){//acceder al formulario de compras
                 $("#menu").hide(1000);
                 $("#compras").show(1000);
+                $(".existe").hide(0);
+                $(".noexiste").hide(0);
 
-                $(document).ready(function(){           
-                    validator=$("#formCompra").validate({
+               $(document).ready(function(){
+                validator=$("#formCompraId").validate({
                         rules:{
                             nameIdCompra:{
                                 required: true,
                                 minlength: 2
                                 //maxlenght:24
                             },
-                            namePrecioCompra:{
-                                required:true,
-                                number:true,
-                                min:1
-                                
-                            },
-                            nameCantProducto:{
-                                required:true,
-                                number:true,
-                                min:1
-                            }
                         },
                         messages:{
                             nameIdCompra:{
@@ -260,20 +304,10 @@
                                 minlength:"longitud minima 2",
                                 //maxlenght:"Maximo de 24 caracteres"
                             },
-                            namePrecioCompra:{
-                                required:"Este campo es OBLIGATORIO",
-                                number:"Debe ser numerico",
-                                min:"Minimo 1"
-                                
-                            },
-                            nameCantProducto:{
-                                required:"Este campo es OBLIGATORIO",
-                                number:"Debe ser numerico y sin decimal",
-                                min:"Minimo 1"
-                            }
                         }
                     })
-                });       
+                });
+     
             } 
             function navPedidos(){
                 $("#menu").hide(1000);
@@ -299,13 +333,21 @@
                         $("#ventas").hide(1000);                       
                         break;
                     case 3:
-                        $("#compras").hide(1000);                       
+                        $("#compras").hide(1000); 
+                        $(".existe").hide(0);
+                        $(".noexiste").hide(0);       
                         break;
                     case 4:
                         $("#pedidos").hide(1000);                     
                         break;
                 }
                 $("#menu").show(1000);
+            }
+            function compraInicial(){
+                $("input[type=text]").val('');//limpia los input
+                validator.resetForm();//resetea los validations
+                $(".existe").hide(1000);
+                $(".noexiste").hide(1000);
             }
             ////
 
@@ -334,7 +376,6 @@
             /// 
 
             ///VENTAS
-
             function venta(){//comprar o modificar un producto
                 idVentas=$("#idVentas").val();
                 cantVenta=parseInt($("#cantVenta").val());
@@ -370,45 +411,188 @@
             ///
 
             ///COMPRAS
-
-            /* //Devuelve si el formulario es valido o no(true=valido   false=no valido)     
-            var validator = $( "#myform" ).validate();
-            validator.form();
-            */
            
-            function comprar(){//comprar o modificar un producto
+            function comprar(){//comprobar un producto
+
                 idcompra=$("#idCompra").val();
-                cantcompra=parseInt($("#cantProducto").val());
-                preciocompra=parseFloat($("#precioProducto").val());
                 esta=false;
-                validatorComp=validador.form();
+                validatorComp=validador.form();//devuelve el estado del formulario
+
                 if(validatorComp){
                     for(i=0;i<productos.length;i++){
-                        if(idcompra==productos[i].nombre){
-                            esta=true;
-                            productos[i].cantidad= productos[i].cantidad+cantcompra;
-                            productos[i].precio=preciocompra;
+                        if(productos[i].nombre==idcompra){
+                            $(".existe").show();
+                            $("#NomCompra").val(productos[i].comun);                          
+                            $("#precioProducto").val(productos[i].preciocompra);
+                            $("#cantProducto").val(productos[i].cantidad);
+                            indice=i;
                             i=productos.length;
-                            //console.log("Producto encontrado");                
+                            esta=true;
+
+                            $(document).ready(function(){           
+                        validator=$("#formCompra").validate({
+                        rules:{
+                            nameNom:{
+                                required: true,
+                                minlength: 4
+                                //maxlenght:24
+                            },
+                            namePrecioCompra:{
+                                required:true,
+                                number:true,
+                                min:1
+                                
+                            },
+                            nameCantProducto:{
+                                required:true,
+                                number:true,
+                                min:1
+                            }
+                        },
+                        messages:{
+                            nameNom:{
+                                required:"Este campo es OBLIGATORIO",
+                                minlength:"longitud minima 4",
+                                //maxlenght:"Maximo de 24 caracteres"
+                            },
+                            namePrecioCompra:{
+                                required:"Este campo es OBLIGATORIO",
+                                number:"Debe ser numerico",
+                                min:"Minimo 1"
+                                
+                            },
+                            nameCantProducto:{
+                                required:"Este campo es OBLIGATORIO",
+                                number:"Debe ser numerico y sin decimal",
+                                min:"Minimo 1"
+                            }
                         }
+                        })
+                        });
+                        }           
                     }
                     if(!esta){
-                        let producto ={//Objeto de medicamentos
-                            nombre:idcompra,
-                            precio :preciocompra,
-                            cantidad:cantcompra
-                        };
-                        productos.push(producto);
-                    // console.log("producto nuevo introducido");
-                        console.log(productos);
+                        $(".noexiste").show(1000);
+                        $(document).ready(function(){           
+                    validator=$("#formCompraNueva").validate({
+                        rules:{
+                            nameNomNuevo:{
+                                required: true,
+                                minlength: 2
+                                //maxlenght:24
+                            },
+                            nameFarma:{
+                                required: true,
+                                minlength: 4
+                                //maxlenght:24
+                            },
+                            namePrecioCompraNuevo:{
+                                required:true,
+                                number:true,
+                                min:1
+                                
+                            },
+                            namePrecioVentaNuevo:{
+                                required:true,
+                                number:true,
+                                min:1
+                            },
+                            nameCantProductoNuevo:{
+                                required:true,
+                                number:true,
+                                min:1
+                            }
+                        },
+                        messages:{
+                            nameNomNuevo:{
+                                required:"Este campo es OBLIGATORIO",
+                                minlength:"longitud minima 2",
+                                //maxlenght:"Maximo de 24 caracteres"
+                            },
+                            nameFarma:{
+                                required:"Este campo es OBLIGATORIO",
+                                minlength:"longitud minima 4",
+                                //maxlenght:"Maximo de 24 caracteres"
+                            },
+                            namePrecioCompraNuevo:{
+                                required:"Este campo es OBLIGATORIO",
+                                number:"Debe ser numerico",
+                                min:"Minimo 1"
+                                
+                            },
+                            namePrecioVentaNuevo:{
+                                required:"Este campo es OBLIGATORIO",
+                                number:"Debe ser numerico y sin decimal",
+                                min:"Minimo 1"
+                            },
+                            nameCantProductoNuevo:{
+                                required:"Este campo es OBLIGATORIO",
+                                number:"Debe ser numerico y sin decimal",
+                                min:"Minimo 1"
+                            }
+                        }
+                        })
+                     });  
+                      
                     }
-                    $("#idCompra").val("");
-                    $("#cantProducto").val("");   
-                    $("#precioProducto").val(""); 
-                    volver_menu(3); 
+                }else{
+                    alert("Introduce correctamente el formulario");
                 }
 
                
+            }
+
+            function crear(){//nuevo medicamento
+                validatorComp=validador.form();//devuelve el estado del formulario
+                console.log(validatorComp);
+
+                idcompra=$("#idCompra").val();
+                nomComun=$("#nameNomNuevo").val();
+                farmaciaa=$("#nameFarma").val();
+                preciocompra=$("#namePrecioCompraNuevo").val();
+                precioVenta=$("#namePrecioVentaNuevo").val();
+                cantcompra=$("#nameCantProductoNuevo").val();
+                console.log($("#nameCantProductoNuevo").val());
+                console.log(document.getElementById("nameCantProductoNuevo"));
+                if(validatorComp){
+                    let producto ={//Objeto de medicamentos
+                            nombre:idcompra,
+                            comun:nomComun,
+                            farmacia: farmaciaa,
+                            preciocompra :preciocompra,
+                            precioventa :precioVenta,
+                            cantidad:cantcompra
+                    };
+                productos.push(producto);
+                // console.log("producto nuevo introducido");
+                console.log(productos);
+                volver_menu(3);
+
+                }else{
+                    alert("Introduce de manera correcta el formulario");
+                }
+
+                
+            }
+            function mod(){//modificar medicamento
+                validatorComp=validador.form();//devuelve el estado del formulario
+                console.log(validatorComp);
+                nombre=$("#nameNom").val();
+                cantcompra=parseInt($("#cantProducto").val());
+                preciocompra=parseFloat($("#precioProducto").val());
+                
+                for(i=0;i<productos.length;i++){
+                    if(productos[i].comun==idcompra){
+                        validatorComp=false;
+                        i=productos.length;
+                    }
+                }
+                if(validatorComp){
+                    productos[indice].cantidad= productos[indice].cantidad+cantcompra;
+                    productos[indice].preciocompra=preciocompra;
+                    productos[indice].comun=nombre;
+                }
+
             }
             ///
 
@@ -420,105 +604,13 @@
                     if(productos[i].cantidad<=5){
                         //console.log("ogjetos a meter en el textarea:");
                        // console.log(productos[i]);
-                        textarea.value =textarea.value+"\n"+productos[i].nombre+" "+productos[i].precio+"  "+productos[i].cantidad;    
+                        textarea.value =textarea.value+"\n"+productos[i].nombre+" "+productos[i].preciocompra+"  "+productos[i].cantidad;    
                     }                 
                 }
                 textarea.innerText(textarea.value);
             }
-            /// 
-
-            /* $(document).ready(function(){//validador del formulario de ventas
-                //pattern:/[A-z]{3}[0-9]{3}/
-                $("#formVentas").validate({
-                    rules:{
-                        nameIdVentas:{
-                            required:true,
-                            minlenght:5,
-                            maxlenght:24
-                        },
-                        nameCantVentas:{
-                            required:true,
-                            number:true,
-                            min:1
-                        }
-                    },
-                    messages:{
-                        nameIdVentas:{
-                            required:"Este campo es OBLIGATORIO",
-                            minlenght:"Minimo de 5 caracteres",
-                            maxlenght:"Maximo de 24 caracteres"
-                        },
-                        nameCantVentas:{
-                            required:"Este campo es OBLIGATORIO",
-                            number:"Debe ser numerico y sin decimal",
-                            min:"Minimo 1"
-                        }
-                    }
-                });
-                $("#formCompra").validate({
-                    rules:{
-                        nameIdCompra:{
-                            required:true,
-                            minlenght:5,
-                            maxlenght:24
-                        },
-                        namePrecioCompra:{
-                            required:true,
-                            float:true,
-                            min:1
-                            
-                        },
-                        nameCantProducto:{
-                            required:true,
-                            number:true,
-                            min:1
-                        }
-                    },
-                    messages:{
-                        nameIdCompra:{
-                            required:"Este campo es OBLIGATORIO",
-                            minlenght:"Minimo de 5 caracteres",
-                            maxlenght:"Maximo de 24 caracteres"
-                        },
-                        namePrecioCompra:{
-                            required:"Este campo es OBLIGATORIO",
-                            float:"Debe ser numerico",
-                            min:"Minimo 1"
-                            
-                        },
-                        nameCantProducto:{
-                            required:"Este campo es OBLIGATORIO",
-                            number:"Debe ser numerico y sin decimal",
-                            min:"Minimo 1"
-                        }
-                    }
-                });
-
-                $("#formUsu").validate({
-                    rules:{
-                        AA:{
-                            required:true,
-                            pattern:/[A-z]{3}[0-9]{3}/
-                        },
-                        nomIngresar:{
-                            required:true,
-                            minlenght:5
-                        }
+            ///   
    
-                    },
-                    messages:{
-                        AA:{
-                            required:"Este campo es obligatorio",
-                            pattern:"El patron consiste de 3 letras seguidos de 3 numeros"
-                        },
-                        nomIngresar:{
-                            required:"Este campo es obligatorio",
-                            minlenght:"El numero minimo de caracteres es de 5"
-                        }
-                    }
-                })
-
-            });*/
         </script>
     </body>
 </html>
